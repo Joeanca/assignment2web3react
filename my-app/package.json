@@ -1,0 +1,22 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bulma": "^0.6.2",
+    "fusioncharts": "^3.12.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-easy-chart": "^1.0.0",
+    "react-fusioncharts": "^1.0.4",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
