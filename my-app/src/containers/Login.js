@@ -41,8 +41,6 @@ class Login extends Component {
                               <img src={process.env.PUBLIC_URL + '/images/portinvestment.svg'} alt="logo"/>
                             </p>
                         </figure>
-                        
-                        
                         <form className ="control card-content">
                             <div className= "card-content">
                                 <div className="field">

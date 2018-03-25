@@ -147,28 +147,30 @@ class StockVisualizer extends Component {
         for (let i=2; i<5;i++){
             let drop = "drop"+i;
             elementsToReturn.push(
-                <div className="dropdown" id={drop} key={i} onClick={()=>this.toggleDropdown(drop)}>
-                        <div className="dropdown-trigger">
-                            <button className="button" aria-haspopup="true" aria-controls="dropdown-menu2">
-                              <span>{this.state[drop]? this.state[drop]:"Choose a stock"}</span>
-                              <span className="icon is-small">
-                                <i className="fas fa-angle-down" aria-hidden="true"></i>
-                              </span>
-                            </button>
-                        </div>
-                        <div className="dropdown-menu" id={"dropdown-menu"+i} role="menu">
-                            <div className="dropdown-content">
-                            {this.state.uniqueStocks?
-                                this.state.uniqueStocks.map((stock, ind) => {
-                                    return(
-                                       <div className="dropdown-item" key={ind} onClick={()=>this.graphTrigger({[drop]:stock})}>{"["+stock+"]" + stock.volume}
-                                        </div>
-                                    );
-                                }):null
-                            }
+                <div className="column">
+                    <div className="dropdown is-fullwidth" id={drop} key={i} onClick={()=>this.toggleDropdown(drop)}>
+                            <div className="dropdown-trigger">
+                                <button className="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu2">
+                                  <span className="">{this.state[drop]? this.state[drop]:"Choose a stock"}</span>
+                                  <span className="icon is-small is-pulled-right	">
+                                    <i className="fas fa-angle-down" aria-hidden="true"></i>
+                                  </span>
+                                </button>
                             </div>
+                            <div className="dropdown-menu" id={"dropdown-menu"+i} role="menu">
+                                <div className="dropdown-content scrollable-menu">
+                                {this.state.uniqueStocks?
+                                    this.state.uniqueStocks.map((stock, ind) => {
+                                        return(
+                                           <div className="dropdown-item" key={ind} onClick={()=>this.graphTrigger({[drop]:stock})}>{"["+stock+"]" + stock.volume}
+                                            </div>
+                                        );
+                                    }):<div className="dropdown-item" disabled>  First choose a month</div>
+                                }
+                                </div>
                         </div>
                     </div>
+                </div>
             );}
         return elementsToReturn;
     }
@@ -176,30 +178,38 @@ class StockVisualizer extends Component {
     render(){
         return(
             <div className="section" id="dropdown_container">
-                <div className="dropdown" id="drop1" onClick={()=>this.toggleDropdown("drop1")}>
-                    <div className="dropdown-trigger">
-                        <button className="button" aria-haspopup="true" aria-controls="dropdown-menu1">
-                          <span>{this.state.month?this.state.month:"Choose a month"}</span>
-                          <span className="icon is-small">
-                            <i className="fas fa-angle-down" aria-hidden="true"></i>
-                          </span>
-                        </button>
-                    </div>
-                    <div className="dropdown-menu" id="dropdown-menu1" role="menu">
-                        <div className="dropdown-content">
-                        {/* populates the month dropdown with the months of the year */}
-                        {this.state.months.map((month, ind) => {
-                                let element = {month: month, drop: "drop1", num: month.num};
-                                return(
-                                    <div className="dropdown-item" key={ind} onClick={()=>this.filterList({element})}>{month.mon}
-                                    </div>
-                                );
-                            })
-                        }
+                <div className="columns">
+                    <div className="column">
+                    <div>
+                    <div className="dropdown is-fulwidth is-multiline" id="drop1" onClick={()=>this.toggleDropdown("drop1")}>
+                        <div className="dropdown-trigger control has-icon-left">
+                            <button className="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu1">
+                              <span className="is-fullwidth">{this.state.month?this.state.month:"Choose a month"}</span>
+                              <span className="icon is-small is-pulled-right	">
+                                <i className="fas fa-angle-down" aria-hidden="true"></i>
+                                </span> 
+                            </button>
+                            
+                        </div>
+                        <div className="dropdown-menu" id="dropdown-menu1" role="menu">
+                            <div className="dropdown-content">
+                            {/* populates the month dropdown with the months of the year */}
+                            {this.state.months.map((month, ind) => {
+                                    let element = {month: month, drop: "drop1", num: month.num};
+                                    return(
+                                        <div className="dropdown-item" key={ind} onClick={()=>this.filterList({element})}>{month.mon}
+                                        </div>
+                                    );
+                                })
+                            }
+                            </div>
                         </div>
                     </div>
+                    </div>
+                    </div>
+                    {this.createDropdowns()}
                 </div>
-                {this.createDropdowns()}
+
                 <div>
                 {/* Check to make sure the data is loaded and displays upon data load/ reload */}
                     {this.state.data?
