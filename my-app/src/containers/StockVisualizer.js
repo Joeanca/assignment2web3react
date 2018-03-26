@@ -147,8 +147,8 @@ class StockVisualizer extends Component {
         for (let i=2; i<5;i++){
             let drop = "drop"+i;
             elementsToReturn.push(
-                <div className="column">
-                    <div className="dropdown is-fullwidth" id={drop} key={i} onClick={()=>this.toggleDropdown(drop)}>
+                <div className="column" key={i}>
+                    <div className="dropdown is-fullwidth" id={drop}  onClick={()=>this.toggleDropdown(drop)}>
                             <div className="dropdown-trigger">
                                 <button className="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu2">
                                   <span className="">{this.state[drop]? this.state[drop]:"Choose a stock"}</span>
@@ -180,32 +180,32 @@ class StockVisualizer extends Component {
             <div className="section" id="dropdown_container">
                 <div className="columns">
                     <div className="column">
-                    <div>
-                    <div className="dropdown is-fulwidth is-multiline" id="drop1" onClick={()=>this.toggleDropdown("drop1")}>
-                        <div className="dropdown-trigger control has-icon-left">
-                            <button className="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu1">
-                              <span className="is-fullwidth">{this.state.month?this.state.month:"Choose a month"}</span>
-                              <span className="icon is-small is-pulled-right	">
-                                <i className="fas fa-angle-down" aria-hidden="true"></i>
-                                </span> 
-                            </button>
-                            
-                        </div>
-                        <div className="dropdown-menu" id="dropdown-menu1" role="menu">
-                            <div className="dropdown-content">
-                            {/* populates the month dropdown with the months of the year */}
-                            {this.state.months.map((month, ind) => {
-                                    let element = {month: month, drop: "drop1", num: month.num};
-                                    return(
-                                        <div className="dropdown-item" key={ind} onClick={()=>this.filterList({element})}>{month.mon}
-                                        </div>
-                                    );
-                                })
-                            }
+                        <div>
+                            <div className="dropdown is-fulwidth is-multiline" id="drop1" onClick={()=>this.toggleDropdown("drop1")}>
+                                <div className="dropdown-trigger control has-icon-left">
+                                    <button className="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu1">
+                                      <span className="is-fullwidth">{this.state.month?this.state.month:"Choose a month"}</span>
+                                      <span className="icon is-small is-pulled-right	">
+                                        <i className="fas fa-angle-down" aria-hidden="true"></i>
+                                        </span> 
+                                    </button>
+                                    
+                                </div>
+                                <div className="dropdown-menu" id="dropdown-menu1" role="menu">
+                                    <div className="dropdown-content">
+                                    {/* populates the month dropdown with the months of the year */}
+                                    {this.state.months.map((month, ind) => {
+                                            let element = {month: month, drop: "drop1", num: month.num};
+                                            return(
+                                                <div className="dropdown-item" key={ind} onClick={()=>this.filterList({element})}>{month.mon}
+                                                </div>
+                                            );
+                                        })
+                                    }
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    </div>
                     </div>
                     {this.createDropdowns()}
                 </div>

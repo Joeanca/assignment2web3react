@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch  } from 'react-router-dom';
 import './App.css';
 
 import HeaderBar from './components/HeaderBar.js';
@@ -22,10 +22,10 @@ class App extends Component {
             <Route path="/" exact component={Home} />
             <Route path="/home" exact component={Home} />
             <Route path="/companies" exact component={BrowseCompanies} />
-            <Route path="/portfolio" exact component={BrowsePortfolio} />
+            <Route path="/portfolio" exact component={BrowsePortfolio}  />
             <Route path="/login" exact component={Login} />
             <Route path="/company/:id" exact component={SingleCompany} />
-            <Route path="/visualizer" exact component={StockVisualizer} />
+            <Route path="/visualizer" exact component={StockVisualizer}/>
             {/*<Route path="/users/user/:id" exact component={SingleUser} />
             <PrivateRoute path="/stocks/:id" exact component={SingleStock} />*/}
             <Route path="/aboutus" exact component={AboutUs} />

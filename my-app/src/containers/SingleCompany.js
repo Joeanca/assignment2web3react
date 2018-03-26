@@ -75,15 +75,8 @@ class SingleCompany extends Component {
                 </div>
                 <div className="box is-radiusless singleUserBox">
                     {this.state.defaultTab? 
-                        <CompanySummarySub symbol={this.state.symbol} 
-                            name= {this.state.company.name}
-                            sector= {this.state.company.sector}
-                            subindustry= {this.state.company.subindustry}
-                            address= {this.state.company.address}
-                            date_added= {this.state.company.date_added}
-                            CIK= {this.state.company.CIK}
-                            frequency= {this.state.company.frequency}/>
-                        :<CompanyListSub company={this.state.company} />
+                        <CompanySummarySub symbol={this.state.symbol} />
+                        :<CompanyListSub symbol={this.state.symbol} />
                     }
                 </div>
             </article>
