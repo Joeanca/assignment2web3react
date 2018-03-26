@@ -64,7 +64,8 @@ class SingleCompany extends Component {
         if (! this.state.company || this.state.company.length === 0){
             return null;
         }else{
-        return(
+            /* eslint-disable react-in-jsx-scope */
+            return(
             <article className="section">
                 <div className="card-image box is-marginless column">
                     <div className="container logo">
