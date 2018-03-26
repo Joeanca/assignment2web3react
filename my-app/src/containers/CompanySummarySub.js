@@ -2,32 +2,23 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Chart } from 'react-google-charts';
 
-//a.For the Summary sub-view, the other information for the company. Also display a bar chart of the average close price for each month. You are free to use any react-friendly JS charting library.
-
 //TODO: CSS
 
-/*
-    Tab displayed in the single company view which displays:
-    1. The information summary for the selected company 
-    2. A bar chart of the average close price for each month.
-*/
+//----------------------------------
+// 7 a. Tab displayed in the single company view which displays:
+//       1. The information summary for the selected company 
+//       2. A bar chart of the average close price for each month.
+//----------------------------------
 class CompanySummarySub extends Component {
     constructor(props){
         super(props);
         this.state ={
             // Setting the state for the company right away passed in from the props of the main container. Since this is the default view we want this information to be displayed right away while the chart loads.
-            company : {
-                symbol: props.symbol
-            },
+            company : props.company,
             // options for the graph
             options: {
                 title: 'Stock closing summary per month',
-                animation:{
-                    duration: 1000,
-                    easing: 'inAndOut',
-                    startup: true,
-                    
-                },
+                animation:{duration: 1000,easing: 'inAndOut',startup: true},
                 is3D: true,
                 seriesType: 'bars',
                 series: {12: {type: 'line'}},
@@ -41,10 +32,12 @@ class CompanySummarySub extends Component {
         };
     }
     
-    // api call to database gets: *AS*(DYUQ*(YQI(WHDUIWQOHDPOUQHWDHQWWIDHWUIQHDWIQOHDWUIQH)
+    //----------------------------------
+    // Once the component mounts it calls the api as described below
+    //----------------------------------
     componentDidMount(){
         
-        //GET THE HISTORICAL DATA FOR THE AVERAGE CLOSE PRICE FOR EACH MONTH 
+        //GET THE HISTORICAL DATA FOR THE AVERAGE CLOSE PRICE FOR EACH MONTH AND SETS THE DATA STATE FOR THE GRAPH
         axios.get("https://obscure-temple-42697.herokuapp.com/api/prices/average/" + this.state.company.symbol).then(response => {
             let stateData = [
                  ['Month','Average']];
@@ -56,40 +49,25 @@ class CompanySummarySub extends Component {
         .catch(function (error){
             alert('Error with api call ... error=' + error);
         });
-        
-        // GET THE SUMMARY INFORMATION FOR THE COMPANY FROM THE SYMBOL
-        axios.get("https://obscure-temple-42697.herokuapp.com/api/companies/" + this.state.company.symbol).then(response => {
-            let tempData = response.data[0];
-            let company = {
-                symbol: tempData.symbol,
-                name:tempData.name, 
-                sector: tempData.sector, 
-                subindustry: tempData.subindustry, 
-                address: tempData.address, 
-                date_added: tempData.date_added, 
-                CIK: tempData.CIK, 
-                frequency: tempData.frequency
-            };
-            this.setState({company:company});
-        })
-        .catch(function (error){
-            alert('Error with api call ... error=' + error);
-        });
     }
-    
+    //----------------------------------
     // Setting up the functions to be mounted upon right before component mount 
     // attaches a resize listener for the options of the chart legend making it more readable on different viewports
+    //----------------------------------
     componentWillMount() {
       // https://goshakkk.name/different-mobile-desktop-tablet-layouts-react/
       window.addEventListener('resize', this.handleWindowSizeChange);
     }
-    
+    //----------------------------------
     // Detaching the listener on unmount of the component
+    //----------------------------------
     componentWillUnmount() {
       window.removeEventListener('resize', this.handleWindowSizeChange);
     }
     
+    //----------------------------------
     // Is called on viewport change to change the options of the chart legend making it more readable on different viewports
+    //----------------------------------
     handleWindowSizeChange = () => {
       this.setState({ width: window.innerWidth });          
       let options = this.state.options;
@@ -102,7 +80,6 @@ class CompanySummarySub extends Component {
       }
     };
 
-    
     render(){
         if (!this.state.company) {return null;}
             else return (

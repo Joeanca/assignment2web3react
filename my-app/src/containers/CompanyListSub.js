@@ -1,11 +1,12 @@
-// b.For the List sub-view, display a drop-down list with the months of the year. When the user selects a month, display a table with the price information (date, low, high, close) for each day of the month that has data. */
 
 // TODO: CSS.
 
 import React, { Component } from 'react';
 import axios from 'axios';
 
-// Displays the information for a single stock element
+//----------------------------------
+// 7 B .display a drop-down list with the months of the year. When the user selects a month, display a table with the price information (date, low, high, close) for each day of the month that has data.
+//----------------------------------
 class CompanyListSub extends Component{
     constructor(props){
         super(props);
@@ -16,21 +17,25 @@ class CompanyListSub extends Component{
             historicalData:''
         };
     }
-    componentDidMount(){
-        
     
-    }
-    
-    getCompanyInfoMonth=(data)=>{
+    //----------------------------------
+    // Calls the api for the historical data from a month passed in and gets a stock's monthly historical information once the user has clicked the month in the dropdown menu
+    // TRIGGERED BY: dropdown menu with id drop1
+    // RETURNS: null, but it sets the state of historicalData and month. an array of monthly historical informa
+    //----------------------------------
+    getCompanyInfoMonth=(monthData)=>{
         //When the user selects a month, display a table with the price information (date, low, high, close) for each day of the month that has data.
-        axios.get("https://obscure-temple-42697.herokuapp.com/api/prices/symandmonth/" + this.state.symbol + "/" + data.month.num ).then(response => {
+        axios.get("https://obscure-temple-42697.herokuapp.com/api/prices/symandmonth/" + this.state.symbol + "/" + monthData.month.num ).then(response => {
             this.setState({historicalData:response.data.sort((a,b)=>{ let result  =0; if(a.date>b.date){result=1;}else if(b.date>a.date){result=-1;} return result;})});
-            this.setState({month: data.month.mon});
+            this.setState({month: monthData.month.mon});
         })
         .catch(function (error){
             alert('Error with api call ... error=' + error);
         });
     }
+    //----------------------------------
+    // Toggles the dropdown if the user clicks on the dropdown (up or down) by toggling the "is-active" class with the id passed in
+    //----------------------------------
     toggleDropdown = (dropMe)=>{
         let drop = document.querySelector("#"+dropMe);
         drop.classList.toggle("is-active");
@@ -60,14 +65,15 @@ class CompanyListSub extends Component{
                                 })
                             }
                             </div>
-                            
                         </div>
                     </div>
                 </div>
+                {/* Checks the status of the data, once the data is populated by the api call it displays the table with the monthly historical information*/}
                 {this.state.historicalData?
                     <table>
                         <tbody>
                         <tr><th>Date</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr>
+                    {/* Map the historical data to output a table row with the data for the specific date */}
                     {this.state.historicalData.map((month, ind)=>{
                         return(<tr key={ind}>
                             <td>{month.date}</td>
@@ -80,6 +86,7 @@ class CompanyListSub extends Component{
                     })}
                     </tbody>
                     </table>
+                // RETURNS NULL IF HISTORICALDATA STATE IS NOT SET
                 :null}
             </div>
         );
