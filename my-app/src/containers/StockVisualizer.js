@@ -5,8 +5,6 @@ import axios from 'axios';
 import { Chart } from 'react-google-charts';
 
 // TODO: CSS
-// TODO: AXIOS GET PORTFOLIO FOR USER
-// TODO: clean fns
 
 //----------------------------------
 //Displays a graph containing a chosen single month's historical closing data for up to three stocks. 
@@ -87,10 +85,18 @@ class StockVisualizer extends Component {
     // populates the graph with a customized data format and triggers the plot of the graph
     //----------------------------------
     populateGraphDate= ()=>{
-        let dates =[], data = [], daysInMonth,arr1, arr2, arr3, getClose;
-        // Check for the selection of the 4 options to graph the historical data. 
+        let data = [];
         //resets the data state to ensure accurate data is displayed
         this.setState({data:null});
+        //call the populate data to graph 
+        this.populateDataArrayConditionally(data);
+    }
+    
+    //----------------------------------
+    // called to populate the data array depending on the number of variables selected
+    //----------------------------------
+    populateDataArrayConditionally=(chartData)=>{
+        let dates =[],daysInMonth,arr1=[], arr2=[], arr3=[], getClose;
         // gets the number of days in a month for the chosen month 
         daysInMonth = new Date(this.state.monthNum, 2017, 0).getDate();
         for (let i = 1; i<=daysInMonth; i++){
@@ -98,25 +104,41 @@ class StockVisualizer extends Component {
             dates.push(currentDay);
         }
         //each data check if the stock exists and if it doesnt add a null
-        data.push([{"label":"date","type":"string"},{"label":this.state.data2[0].name,"type":"number"},{"label":this.state.data3[0].name,"type":"number"},{"label":this.state.data4[0].name,"type":"number"}]);
-        // gets the closing data out of the stock object before pushing to the array of data which will later on become the state.data[]
-        getClose = (object)=>{if(object)return object.close; else return null};
-        for (let date of dates ){
-            // loop through each stock and fill the data array with the points necessary to plot the graph 
-            arr1 = this.state.data2.find((data)=>{if(data.name ===  this.state.data2[0].name && data.date.trim() === date){return data}else return null});
-            arr2 = this.state.data3.find((data)=>{if(data.name ===  this.state.data3[0].name && data.date.trim() === date){return data}else return null});
-            arr3 = this.state.data4.find((data)=>{if(data.name ===  this.state.data4[0].name && data.date.trim() === date){return data}else return null});
-            data.push([date,getClose(arr1),getClose(arr2),getClose(arr3)]);
+        getClose = (object)=>{if(object || typeof(object) !== "undefined")return object.close; else return null};
+        // THIS ELEMENT IS THE FIRST IN THE CHART ARRAY AND IT IS THE LABELS FOR THE AXIS, NEEDS ADDITIONAL ELEMENTS FOR EACH ROW (STOCK) ADDED
+        let chartLabel = [{"label":"date","type":"string"}];
+        // CHECK FOR THE STATE OF THE NAME ON THE DROPDOWN
+        let buildArray = (number)=>{
+            let identifier = "data" + number;
+            let name = identifier + "name";
+            if (this.state[name]){ 
+            // PUSHES THE EXTRA ITEM TO THE CHART LABEL WITH THE NECESSARY SYNTAX 
+            chartLabel.push({"label":this.state[identifier][0].name,"type":"number"});
+                for (let date of dates ){
+                    // loop through each stock and fill the data array with the points necessary to plot the graph 
+                    let temp = this.state[identifier].find((data)=>{if(data.name ===  this.state[identifier][0].name && data.date.trim() === date){return data}else return null});
+                    // eslint-disable-next-line
+                    eval("arr" + (number-1)).push(getClose(temp));
+                }
+            }
+        };
+        // CALL THE BUILDARRAY FUNCTION TO PUPULATE POINTS FOR CHART 
+        for (let i =2; i<5;i++)buildArray(i);
+        // POPULATE THE FINAL ARRAY DEPENDING ON THE SET STATES
+        chartData.push(chartLabel);
+        for (let i=0; i<dates.length; i++){
+            // CREATES AN ARRAY OBJECT AND PUSHES THE POPULATED ARRAYS PER POSITION (WHICH HAS BEEN FILLED WITH NULLS FOR DATES WITHOUT A DATA POINT)
+            let toPush =[];
+            toPush.push(dates[i]);    
+            if (arr1.length > 0) toPush.push(arr1[i]);
+            if (arr2.length > 0) toPush.push(arr2[i]);
+            if (arr3.length > 0) toPush.push(arr3[i]);
+            chartData.push(toPush);
         }
-        this.setState({data:data});
-        
-    }
-    
-    //----------------------------------
-    // called to populate the data array depending on the number of variables selected
-    //----------------------------------
-    populateDataArrayConditionally=()=>{
-        
+        // MAKE SURE THAT AT LEAST ONE OF THE DROPDOWN'S OPTIONS HAVE BEEN SELECTED BEFORE GRAPHING
+        if (this.state.data2name || this.state.data3name || this.state.data4name){
+            this.setState({data:chartData});
+        }
     }
     
     //----------------------------------
@@ -163,11 +185,25 @@ class StockVisualizer extends Component {
     // Takes the month chosen from the dropdown list and sets the flag displayDropData to allow the stock dropdown lists to appear 
     //----------------------------------
     filterList = (currentmonth)=>{
+        let changeMonth=()=>{
+        if (this.state.companyList && !this.state.displayDropData)
+            this.setState({displayDropData: true});
+        else 
+            // SET THE AVAILABILITY OF THE ARRAYS OF STOCKS FOR THE THREE STOCK DROPDOWNS
+            this.refreshMonth();
+        }
         this.setState({month:currentmonth.element.month.mon });
-        this.setState({monthNum: currentmonth.element.month.num});
-        // SET THE AVAILABILITY OF THE ARRAYS OF STOCKS FOR THE THREE STOCK DROPDOWNS
-        if (this.state.companyList)
-            this.setState({displayDropData: true})
+        this.setState({monthNum: currentmonth.element.month.num}, changeMonth);
+        
+    }
+    
+    //----------------------------------
+    // refreshes the graph if the month
+    //----------------------------------
+    refreshMonth=()=>{
+        for (let i=2; i<5;i++){
+            if (this.state["data" + i +"name"]){this.graphTrigger({["data" +i]:this.state["data"+i][0].name}, "data" + i)}
+        }
     }
     
     //----------------------------------
@@ -240,11 +276,12 @@ class StockVisualizer extends Component {
                             </div>
                         </div>
                     </div>
+                    {/* RENDER THE THREE DROPDOWNS FOR THE STOCKS IF THE BOOLEAN DISPLAYDROPDATA IS TRUE */}
                     {this.state.displayDropData?this.createDropdowns():null}
                 </div>
 
                 <div>
-                {/* Check to make sure the data is loaded and displays upon data load/ reload */}
+                    {/* Check to make sure the data is loaded and displays upon data load/ reload */}
                     {this.state.data?
                     <div>
                         <Chart
@@ -255,8 +292,7 @@ class StockVisualizer extends Component {
                               width="100%"
                               height="400px"
                               legend_toggle
-
-                            />
+                        />
                     </div>
                     : null}
                 </div>

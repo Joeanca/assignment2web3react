@@ -1,5 +1,6 @@
 
 //TODO: CSS for the image and the name
+//TODO: SORTING
 
 import React, { Component } from 'react';
 import axios from 'axios';
