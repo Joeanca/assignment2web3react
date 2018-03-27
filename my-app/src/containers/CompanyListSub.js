@@ -48,6 +48,7 @@ class CompanyListSub extends Component{
                     <div className="dropdown" id="drop1" onClick={()=>this.toggleDropdown("drop1")}>
                         <div className="dropdown-trigger">
                             <button className="button" aria-haspopup="true" aria-controls="dropdown-menu1">
+                                {/* IF THE MONTH IS SET DISPLAYS THE MONTH OTHERWISE ASKS TO CHOOSE A MONTH  */}
                               <span>{this.state.month?this.state.month:"Choose a month"}</span>
                               <span className="icon is-small">
                                 <i className="fas fa-angle-down" aria-hidden="true"></i>
@@ -56,7 +57,7 @@ class CompanyListSub extends Component{
                         </div>
                         <div className="dropdown-menu" id="dropdown-menu1" role="menu">
                             <div className="dropdown-content">
-                            {
+                            {// CREATES DROPDOWN OPTIONS AS IT ITERATES THROUGH THE MONTHS ARRAY
                                 this.state.months.map((month, ind) => {
                                     return(
                                         <div className="dropdown-item" key={ind} onClick={()=>this.getCompanyInfoMonth({month})}>{month.mon}

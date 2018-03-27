@@ -14,6 +14,7 @@ class PortfolioInfoSub extends Component {
         this.state={
             userid: this.props.userid,
             userPortfolio: this.props.portfolio,
+            completePortfolio:'',
         };
     }
     
@@ -21,25 +22,27 @@ class PortfolioInfoSub extends Component {
     // Once the component mounts it calls the api as described below
     //----------------------------------
     componentDidMount(){
-        let userPortfolio= this.state.userPortfolio;
-        let portfolioWithName = [];
-        // GETS THE SUMMARY OF STOCKS OWNED AND DISPLAYS AS A PERCENTAGE
-        axios.get("https://obscure-temple-42697.herokuapp.com/api/companies/list").then(response => {
-            response.data.filter(function(element) {
-              for(let el of userPortfolio){if (el.symbol === element.symbol){
-                  let toReturn ={owned:el.owned, symbol: element.symbol, name: element.name};
-                  portfolioWithName.push(toReturn);
-                  }}return null;
+        if (!this.state.completePortfolio){
+            let userPortfolio= this.state.userPortfolio;
+            let portfolioWithName = [];
+            // GETS THE SUMMARY OF STOCKS OWNED AND DISPLAYS AS A PERCENTAGE
+            axios.get("https://obscure-temple-42697.herokuapp.com/api/companies/list").then(response => {
+                response.data.filter((element)=> {
+                  for(let el of userPortfolio){if (el.symbol === element.symbol){
+                      let toReturn ={owned:el.owned, symbol: element.symbol, name: element.name};
+                      portfolioWithName.push(toReturn);
+                      }}return null;
+                });
+                this.setState({completePortfolio: portfolioWithName});
+            })
+            .catch(function (error){
+                alert('Error with api call ... error=' + error);
             });
-            this.setState({userPortfolio: portfolioWithName});
-        })
-        .catch(function (error){
-            alert('Error with api call ... error=' + error);
-        });
+        }
     }
     render(){
         // Checks if the the information for the database api call has been successfully retrieved and displays result 
-        if (!this.state.userPortfolio) {return null;}
+        if (!this.state.completePortfolio) {return null;}
             else return (
                 <table>
                     <tbody>
@@ -49,7 +52,7 @@ class PortfolioInfoSub extends Component {
                         <th>Owned</th>
                     </tr>
                     {/* maps the user portfolio data to display the information for each of the stocks retrieved */}
-                    {this.state.userPortfolio.map((stock, ind) => {
+                    {this.state.completePortfolio.map((stock, ind) => {
                         return(
                             <tr key={ind}>
                                 <td>{stock.symbol}</td>

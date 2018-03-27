@@ -19,7 +19,7 @@ class BrowsePortfolio extends Component {
         super(props);
         this.state = {
             defaultTab: true,
-            userid: 118,
+            userid: 119,
             pieData:'',
             portfolio:'',
         };
@@ -38,7 +38,7 @@ class BrowsePortfolio extends Component {
                 pieData.push([stock.symbol, stock.owned]);
             }
             this.setState({pieData: pieData});
-            this.setState({portfolio: portfolioInfo});
+            this.setState({portfolio: portfolioInfo});// GETS THE SUMMARY OF STOCKS OWNED AND DISPLAYS AS A PERCENTAGE
         })
         .catch(function (error){
             alert('Error with api call ... error=' + error);
@@ -74,11 +74,10 @@ class BrowsePortfolio extends Component {
                 <div className="box is-radiusless singleUserBox">
                     {/* RENDER TABS AND PASS IN PROPS TO THE COMPONENTS WITHIN THE TABS */}
                     {this.state.defaultTab?
-                        // IF TRUE  
-                        this.state.pieData?
-                        <PortfolioSummarySub userid={this.state.userid} pieData={this.state.pieData}/>:null
-                        // IF FALSE
-                        
+                        // IF DEFAULT TAB TRUE RENDER PORTFOLIOSUMMARY THEN CHECKS THAT PIEDATA IS SET
+                        this.state.pieData  && this.state.portfolio?
+                        <PortfolioSummarySub userid={this.state.userid} pieData={this.state.pieData} portfolio={this.state.portfolio} />:null
+                        // IF DEFAULT TAB FALSE RENDER PORTFOLIOINFOSUB THEN CHECKS THAT PORTFOLIO IS SET
                         :this.state.portfolio?
                         <PortfolioInfoSub userid={this.state.userid} portfolio={this.state.portfolio}/>:null
                     }

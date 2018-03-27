@@ -13,22 +13,30 @@ import NotFound from './components/NotFound.js';
 import AboutUs from './components/AboutUs.js';
 
 class App extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+          userid: 119,
+          isAuthenticated: true
+        };
+    }
     render() {
     return (
       <div>
         <HeaderBar/>
         <main >
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/home" exact component={Home} />
-            <Route path="/companies" exact component={BrowseCompanies} />
-            <Route path="/portfolio" exact component={BrowsePortfolio}  />
-            <Route path="/login" exact component={Login} />
-            <Route path="/company/:id" exact component={SingleCompany} />
-            <Route path="/visualizer" exact component={StockVisualizer}/>
+            <Route path="/" exact component={Home} user={this.state.userid}/>
+            <Route path="/home" exact component={Home} user={this.state.userid}/>
+            <Route path="/companies" exact component={BrowseCompanies} user={this.state.userid}/>
+            <Route path="/portfolio" exact component={BrowsePortfolio}  user={this.state.userid}/>
+            <Route path="/login" exact component={Login} user={this.state.userid}/>
+            <Route path="/company/:id" exact component={SingleCompany} user={this.state.userid}/>
+            {/*<Route path="/visualizer" exact component={StockVisualizer} user={this.state.userid} " onEnter="{authCheck}"/>*/}
+            <Route path="/visualizer" exact render={(props) => (<StockVisualizer userid={this.state.userid} isAuthenticated={this.state.isAuthenticated} />) }/>
             {/*<Route path="/users/user/:id" exact component={SingleUser} />
             <PrivateRoute path="/stocks/:id" exact component={SingleStock} />*/}
-            <Route path="/aboutus" exact component={AboutUs} />
+            <Route path="/aboutus" exact component={AboutUs} user={this.state.userid}/>
             <Route component={NotFound}/>
           </Switch>
         </main>
@@ -38,3 +46,11 @@ class App extends Component {
 }
 
 export default App;
+
+//https://til.hashrocket.com/posts/z8cimdpghg-passing-props-down-to-react-router-route
+// <Route
+//   path="/my/path"
+//   render={(routeProps) => (
+//     <MyComponent {...routeProps} {...props} />
+//   )}
+// />
