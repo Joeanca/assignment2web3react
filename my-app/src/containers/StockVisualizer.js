@@ -141,8 +141,6 @@ class StockVisualizer extends Component {
         }
     }
     
-    
-    
     //----------------------------------
     // called on click on every stock option from the dropdown lists, changes the state of the object passed in and uses a callback to re-populate the graph
     //----------------------------------
