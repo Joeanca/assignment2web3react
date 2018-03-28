@@ -4,6 +4,7 @@ import { Chart } from 'react-google-charts';
 
 //TODO: CSS
 
+
 //----------------------------------
 // 7 a. Tab displayed in the single company view which displays:
 //       1. The information summary for the selected company 

@@ -7,8 +7,6 @@ import React, { Component } from 'react';
 //TODO : email format validation
 //TODO : password hashing and communication
 
-
-
 // EXAMPLE OF LOGIN
 // https://reacttraining.com/react-router/web/example/auth-workflow
 

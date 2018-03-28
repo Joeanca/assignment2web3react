@@ -3,8 +3,6 @@
 // TODO: Implement api call to new website, SEE IF WE CAN DO IT WITH A DESIGN LAYER!
 // TODO: CSS (remove table and implement another type of layout, looks like crad on iPad viewport) and comments
 
-
-
 import React, { Component } from 'react';
 // import axios from 'axios';
 import { NavLink } from 'react-router-dom';

@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
 
+
 //----------------------------------
 //  display the following information: total number of companies in portfolio, the total number of stocks in portfolio, and the current $ worth of the portfolio. Also display a pie chart displaying a percentage summary of the portfolio information for that user (see 2a in Back-End Requirements). 
 //----------------------------------    
