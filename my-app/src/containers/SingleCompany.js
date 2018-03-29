@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import CompanySummarySub from './CompanySummarySub.js';
 import CompanyListSub from './CompanyListSub.js';
+
 //----------------------------------
 // For this view, display the logo and the company name. As well, display two tabs that allow the user to view either the Summary sub-view or the List sub-view:
 //     a.For the Summary sub-view, the other information for the company. Also display a bar chart of the average close price for each month. You are free to use any react-friendly JS charting library.
@@ -15,7 +16,7 @@ class SingleCompany extends Component {
     constructor(props){
         super(props);
         this.state = {
-            symbol: props.match.params.id,
+            // symbol: this.props.props.match.params.id,
             defaultTab: true,
             company:''
         };
@@ -25,6 +26,8 @@ class SingleCompany extends Component {
     // Once the component mounts it calls the api as described below
     //----------------------------------
     componentDidMount(){
+        console.log(this.props);
+        // console.log(this.props.props.match.params.id);
         // GET THE SUMMARY INFORMATION FOR THE COMPANY FROM THE SYMBOL AND SETS THE STATE
         axios.get("https://obscure-temple-42697.herokuapp.com/api/companies/" + this.state.symbol).then(response => {
             let tempData = response.data[0];

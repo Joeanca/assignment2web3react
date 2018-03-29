@@ -19,7 +19,7 @@ class BrowsePortfolio extends Component {
         super(props);
         this.state = {
             defaultTab: true,
-            userid: 119,
+            userid: this.props.userid,
             pieData:'',
             portfolio:'',
         };

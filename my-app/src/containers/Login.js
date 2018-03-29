@@ -1,6 +1,7 @@
 /* 4.The first thing the user must experience is a log-in screen if the user is not already logged-in. The form must provide mechanism for entering email and password. It will display a Bulma notification if the credential information is incorrect. This notification must disappear once the user starts entering information into the login form. I would recommend adding in the log-in capabilities after you have most of the main functionality working. I will provide you with more guidance on how best to implement this in Node and react. */
 
 import React, { Component } from 'react';
+import { Redirect  } from 'react-router-dom';
 // import axios from 'axios';
 // import { NavLink } from 'react-router-dom';
 
@@ -12,22 +13,36 @@ import React, { Component } from 'react';
 // EXAMPLE OF LOGIN
 // https://reacttraining.com/react-router/web/example/auth-workflow
 
+//https://tylermcginnis.com/react-router-protected-routes-authentication/
 
 class Login extends Component {
-    constructor(props){
+  constructor(props){
         super(props);
-        this.state = {
-          redirectToReferrer: false
+        this.state={
+            userid: this.props.userid,
+            auth: this.props.changeAuth,
+            isAuthenticated: this.props.isAuthenticated,
+            redirectToReferrer: ''
         };
     }
     
-    handleChange= (event)=> {
-        this.setState({value: event.target.value});
-    }
+  componentDidMount(){
+  }
+  login = () => {
+    this.setState({redirectToReferrer: true});
+    this.props.auth(true);
+  };
 
-    
-    render(){
-        return(
+  render() {
+    console.log(this.props);
+    console.log(this.state);
+    const { from } = this.props.from.state|| { from: { pathname: "/" } };
+    console.log({from});
+    if (this.state.redirectToReferrer) {
+      return <Redirect  to={{pathname: {from}.from, symbol: {from}.symbol
+        }} props = {from}/>;
+    }
+    return(
           <div>
             
             <article className="section">
@@ -47,12 +62,13 @@ class Login extends Component {
                               <img src={process.env.PUBLIC_URL + '/images/portinvestment.svg'} alt="logo"/>
                             </p>
                         </figure>
+
                         <form className ="control card-content">
                             <div className= "card-content">
                                 <div className="field">
                                   <label className="label">Email</label>
                                   <div className="control has-icons-left has-icons-right">
-                                    <input className="input" type="email" placeholder="Email input" value="hello@" onChange={this.handleChange}/>
+                                    <input className="input" type="email" placeholder="Email input" value="" onChange={this.handleChange}/>
                                     <span className="icon is-small is-left">
                                       <i className="fas fa-envelope"></i>
                                     </span>
@@ -72,7 +88,9 @@ class Login extends Component {
                                 </div>
                                 <div className="field is-grouped">
                                   <div className="control">
-                                    <button className="button is-link input"  type="submit" value="Submit" >Submit</button>
+                                          <button onClick={()=>this.login()}>Log in</button>
+
+                                    {/* <button className="button is-link input"  type="submit" value="Submit" >Submit</button> */}
                                   </div>
                                 </div>
                             </div>
@@ -85,3 +103,12 @@ class Login extends Component {
     }
 }
 export default Login;
+
+// return (
+//       <div>
+//         <p>You must log in to view the page at {from.pathname}</p>
+//         <button onClick={this.login}>Log in</button>
+//       </div>
+//     );
+//   }
+// }

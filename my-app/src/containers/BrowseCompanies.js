@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import jsondata from '../jsonFiles/companies.json';
 
 class BrowseCompanies extends Component {
@@ -63,7 +63,7 @@ class BrowseCompanies extends Component {
                                             </div>
                                         </NavLink>
                                     </td>
-                                    <td><NavLink to={"/company/" + company.symbol} key={ind}>{company.name}</NavLink></td>
+                                    <td><NavLink to={"/company/" + company.symbol} symbol={company.symbol} key={ind}>{company.name}</NavLink></td>
                                     </tr>
                                 );
                             }):null
