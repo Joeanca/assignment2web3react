@@ -104,8 +104,6 @@ class Login extends Component {
                                           <span>Submit</span>
                                         </a>
                                       </p>
-                                   {/*<button className="button is-link input"  type="submit" value="Submit" onClick={()=>this.bypasslogin()}>Login without credentials "debug"</button>
-                                   <button className="button is-link input"  type="submit" value="Submit" onClick={()=>this.login()}>Submit</button>*/}
                                 </div>
                             </div>
                         </form>
