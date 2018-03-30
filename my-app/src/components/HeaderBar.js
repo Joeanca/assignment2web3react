@@ -7,6 +7,7 @@ class HeaderBar extends React.Component {
         this.state = {
             //This state property is the handler for the burger menu displayed only in mobile form
             showMenu: false,
+            // states available through user: id, first_name, last_name, email
             user: this.props.user,
             logout: this.props.logoutfn
         };
@@ -32,7 +33,6 @@ class HeaderBar extends React.Component {
     }
 
     render(){
-        console.log(this.props);
         return(
         <nav className="navbar is-primary"> 
             <div className="navbar-brand">
@@ -77,7 +77,7 @@ class HeaderBar extends React.Component {
                       <hr className="dropdown-divider"/>
 
                      </NavLink>
-                     <NavLink className="navbar-item" to={ {pathname: "/aboutus" }} onClick={this.state.logout}>
+                     <NavLink className="navbar-item"  to={ {pathname: "/" }} onClick={this.state.logout}>
                         <div>Logout</div>
                      </NavLink>
                 </div>
@@ -115,7 +115,7 @@ class HeaderBar extends React.Component {
                     <div>Find out more about this system</div>
                   </NavLink>
                     <hr className="dropdown-divider"/>
-                    <NavLink className="navbar-item" to={ {pathname: "/aboutus" }} onClick={this.state.logout}>
+                    <NavLink className="navbar-item" to={ {pathname: "/" }} onClick={this.state.logout}>
                         <div>Logout</div>
                      </NavLink>
                 </div>

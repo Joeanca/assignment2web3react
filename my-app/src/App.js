@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
+import { Route, Switch  } from 'react-router-dom';
 import './App.css';
 
 import HeaderBar from './components/HeaderBar.js';
@@ -19,7 +19,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-          userid:0,
+          userid:-1,
           isAuthenticated : false
         };
     }
