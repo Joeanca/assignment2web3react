@@ -16,7 +16,7 @@ class SingleCompany extends Component {
     constructor(props){
         super(props);
         this.state = {
-            // symbol: this.props.props.match.params.id,
+            symbol: this.props.match.params.id,
             defaultTab: true,
             company:''
         };

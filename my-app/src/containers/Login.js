@@ -28,19 +28,25 @@ class Login extends Component {
     
   componentDidMount(){
   }
-  login = () => {
+  bypasslogin = () => {
+    // IMPLEMENT LOGIN LOGIC HERE FOR AXIOS CALL
     this.setState({redirectToReferrer: true});
     this.props.auth(true);
   };
-
+  login = () => {
+    // IMPLEMENT LOGIN LOGIC HERE FOR AXIOS CALL
+    this.setState({redirectToReferrer: true});
+    this.props.auth(true);
+  };
   render() {
-    console.log(this.props);
+    console.log(this.props.location.pathname);
+    // console.log(this.props.location.state.from.pathname);
+
     console.log(this.state);
-    const { from } = this.props.from.state|| { from: { pathname: "/" } };
+    const { from } = this.props.location.pathname|| { from: { pathname: "/" } };
     console.log({from});
     if (this.state.redirectToReferrer) {
-      return <Redirect  to={{pathname: {from}.from, symbol: {from}.symbol
-        }} props = {from}/>;
+      return <Redirect  to={{pathname: {from} }}/>;
     }
     return(
           <div>
@@ -86,12 +92,20 @@ class Login extends Component {
                                     </span>
                                   </p>
                                 </div>
+                                {/* TO DISABLE LOGIN REDIRECT ON LOAD SET THE APP.JS ISAUTHENTICATED STATE TO TRUE */}
                                 <div className="field is-grouped">
-                                  <div className="control">
-                                          <button onClick={()=>this.login()}>Log in</button>
-
-                                    {/* <button className="button is-link input"  type="submit" value="Submit" >Submit</button> */}
-                                  </div>
+                                      <p className="control">
+                                        <a className="button is-link input" onClick={()=>this.bypasslogin()}>
+                                          <span>Login without credentials "debug"</span>
+                                        </a>
+                                      </p>
+                                      <p className="control">
+                                        <a className="button is-link input" onClick={()=>this.login()}>
+                                          <span>Submit</span>
+                                        </a>
+                                      </p>
+                                   {/*<button className="button is-link input"  type="submit" value="Submit" onClick={()=>this.bypasslogin()}>Login without credentials "debug"</button>
+                                   <button className="button is-link input"  type="submit" value="Submit" onClick={()=>this.login()}>Submit</button>*/}
                                 </div>
                             </div>
                         </form>

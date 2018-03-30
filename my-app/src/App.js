@@ -24,43 +24,38 @@ class App extends Component {
     changeAuth=(bool)=>{
         this.setState({isAuthenticated :true});
     }
+    
     logout=()=>{
         this.setState({isAuthenticated: false});
     }
-    setProps=(data)=>{
-        this.setState({tempProps: [data]});
+    
+    checkAuth=(component)=>{
+      if (this.state.isAuthenticated){
+        return component
+      }else {
+        return this.redirect(component)
+      }
     }
-    getProps = ()=>{if (this.state.tempProps) return this.state.tempProps
-      else return null;
-    }
+    
+    redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} {...props} />) } />)
     render() {
-      console.log(this.props)
-    const PrivateRoute = ({ component: Component, ...rest }) =>{
-       return (
-        this.state.isAuthenticated ? 
-          {...rest}:
-        <Redirect  to={{pathname: "/login",
-          state: { from: {...rest}.location.pathname, symbol: {...rest}.computedMatch.params.id},
-          symbol:{...rest}.computedMatch.params.id
-        }} />
-        
-        // console.log({...rest}.location.pathname),
-        // console.log({...rest})
-    )};
+
     return (
       <div>
-        {this.state.isAuthenticated?<HeaderBar logoutfn={this.logout}/>:null}
+        {this.state.isAuthenticated?<HeaderBar logoutfn={this.logout}/>:
+           null
+        }
         <main >
           <Switch >
-            <PrivateRoute path="/" exact render={(props) => (<Home userid={this.state.userid} />) }/>
-            <PrivateRoute path="/home" exact render={(props) => (<Home userid={this.state.userid} />) }/>
-            <PrivateRoute path="/companies" exact render={(props) => (<BrowseCompanies userid={this.state.userid}  />) }/>
-            <PrivateRoute path="/portfolio" exact render={(props) => (<BrowsePortfolio userid={this.state.userid}  />) }/>
+            <Route path="/" exact render={(props) => (this.checkAuth(<Home userid={this.state.userid} />))} />
+            <Route path="/home" exact render={(props) => this.checkAuth(<Home userid={this.state.userid} />) }/>
+            <Route path="/companies" exact render={(props) => this.checkAuth(<BrowseCompanies userid={this.state.userid}  />)}/>
+            <Route path="/portfolio" exact render={(props) => this.checkAuth(<BrowsePortfolio userid={this.state.userid}  />) }/>
             <Route path="/login" exact render={(props) => (<Login userid={this.state.userid}  auth={this.changeAuth} history={this.history} from={props.location} isAuthenticated={this.state.isAuthenticated}/>) }/>
-            <PrivateRoute path="/company/:id" exact render={(props) => (<SingleCompany props={this.props} smtg={props} userid={this.state.userid} />) }/>
-            <PrivateRoute path="/visualizer" exact render={(props) => (<StockVisualizer  userid={this.state.userid} />) }/>
-            <PrivateRoute path="/aboutus" exact render={(props) => (<AboutUs userid={this.state.userid} />) }/>
-            <PrivateRoute render={(props) => (<NotFound userid={this.state.userid} />) }/>
+            <Route path="/company/:id" exact render={(props) => this.checkAuth(<SingleCompany {...props} userid={this.state.userid} />) }/>
+            <Route path="/visualizer" exact render={(props) => this.checkAuth(<StockVisualizer  userid={this.state.userid} />) }/>
+            <Route path="/aboutus" exact render={(props) => this.checkAuth(<AboutUs userid={this.state.userid} />) }/>
+            <Route render={(props) => this.checkAuth(<NotFound userid={this.state.userid} />) }/>
           </Switch>
         </main>
         </div>
