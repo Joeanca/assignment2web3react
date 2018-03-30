@@ -12,23 +12,41 @@ import StockVisualizer from './containers/StockVisualizer';
 import NotFound from './components/NotFound.js';
 import AboutUs from './components/AboutUs.js';
 
-
+//-----------------------------------------------------
+//
+//-----------------------------------------------------
 class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-          userid: 116,
+          userid:0,
           isAuthenticated : false
         };
     }
-    changeAuth=(bool)=>{
+    
+    //-----------------------------------------------------
+    //
+    //-----------------------------------------------------
+    changeAuth=(bool, user)=>{
+        if (user){
+          this.setState({userid:user.id});
+          this.setState({first:user.first_name});
+          this.setState({last: user.last_name});
+          this.setState({wholeUser: user})
+        }
         this.setState({isAuthenticated :true});
     }
     
+    //-----------------------------------------------------
+    //
+    //-----------------------------------------------------
     logout=()=>{
         this.setState({isAuthenticated: false});
     }
-    
+   
+    //-----------------------------------------------------
+    //
+    //----------------------------------------------------- 
     checkAuth=(component)=>{
       if (this.state.isAuthenticated){
         return component
@@ -36,13 +54,18 @@ class App extends Component {
         return this.redirect(component)
       }
     }
-    
+   
+    //-----------------------------------------------------
+    //
+    //-----------------------------------------------------
     redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} {...props} />) } />)
-    render() {
-
+   
+   
+   render() {
     return (
       <div>
-        {this.state.isAuthenticated?<HeaderBar logoutfn={this.logout}/>:
+        {/* checks if logged in and passes the user data */}
+        {this.state.isAuthenticated?<HeaderBar logoutfn={this.logout} user={this.state.wholeUser}/>:
            null
         }
         <main >

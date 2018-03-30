@@ -6,7 +6,9 @@ class HeaderBar extends React.Component {
         super(props);
         this.state = {
             //This state property is the handler for the burger menu displayed only in mobile form
-            showMenu: false
+            showMenu: false,
+            user: this.props.user,
+            logout: this.props.logoutfn
         };
     }
     // Displays the desktop menu onMouseIn
@@ -30,6 +32,7 @@ class HeaderBar extends React.Component {
     }
 
     render(){
+        console.log(this.props);
         return(
         <nav className="navbar is-primary"> 
             <div className="navbar-brand">
@@ -39,7 +42,7 @@ class HeaderBar extends React.Component {
                     </span>                 
                 </a>                
                 <NavLink className="navbar-item" to={ {pathname: "/home" }}>                   
-                        <h1 className="title is-3">Assignment 1</h1>
+                        <h1 className="title is-3">Welcome: {this.state.user.first_name} {this.state.user.last_name}</h1>
                 </NavLink>
                 
                 {/* empty container found to be needed as a place holder for the burger meny contracted*/}
@@ -71,6 +74,11 @@ class HeaderBar extends React.Component {
                      <NavLink className="navbar-item" to={ {pathname: "/aboutus" }} onClick={this.toggleMenu}>
                         <div>About Us</div>
                         <div>Find out more about this system</div>
+                      <hr className="dropdown-divider"/>
+
+                     </NavLink>
+                     <NavLink className="navbar-item" to={ {pathname: "/aboutus" }} onClick={this.state.logout}>
+                        <div>Logout</div>
                      </NavLink>
                 </div>
             </div>
@@ -106,6 +114,10 @@ class HeaderBar extends React.Component {
                     <div>About Us</div>
                     <div>Find out more about this system</div>
                   </NavLink>
+                    <hr className="dropdown-divider"/>
+                    <NavLink className="navbar-item" to={ {pathname: "/aboutus" }} onClick={this.state.logout}>
+                        <div>Logout</div>
+                     </NavLink>
                 </div>
               </div>
             </div>
