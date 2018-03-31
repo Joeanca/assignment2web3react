@@ -1,24 +1,24 @@
 //b.For the Summary sub-view (which should be the default), display the following information: total number of companies in portfolio, the total number of stocks in portfolio, and the current $ worth of the portfolio. Also display a pie chart displaying a percentage summary of the portfolio information for that user (see 2a in Back-End Requirements). */
 
 //TODO total amount of money
-//TODO check chart
 //TODO CSS
 
 import React, { Component } from 'react';
-// import axios from 'axios';
-// import {PieChart, Legend} from 'react-easy-chart';
 import { Chart } from 'react-google-charts';
+import axios from 'axios';
 
-
-import jsondata from '../jsonFiles/portfolio.json';
-
-
+//----------------------------------
+//  display the following information: total number of companies in portfolio, the total number of stocks in portfolio, and the current $ worth of the portfolio. Also display a pie chart displaying a percentage summary of the portfolio information for that user (see 2a in Back-End Requirements). 
+//----------------------------------    
 class PortfolioSummarySub extends Component {
     constructor(props){
         super(props);
         this.state={
-            company: "hello",
+            owned:'',
             userid: this.props.userid,
+            pieData: this.props.pieData,
+            portfolio: this.props.portfolio,
+            total: this.props.total,
             options: {
                 title: 'Portfolio distribution',
                 animation:{
@@ -31,34 +31,40 @@ class PortfolioSummarySub extends Component {
             }
         };
     }
-    
     componentDidMount(){
-        /*axios.get().then(response => {
-            this.setState({companies:response.data.sort((a,b)=>{ let result  =0; if(a.name>b.name){result=1;}else if(b.name>a.name){result=-1;} return result;})});
+        // SETS THE NUMBER OF COMPANIES OWNED STATE FROM THE LENGTH OF THE PIEDATA MINUS THE TITLE ROW WITHIN THE ARRAY
+        this.setState({owned: (this.state.pieData.length-1)});
+        // CALLS FOR EACH OF THE ELEMENTS OF THE PORTFOLIO ARRAY WHICH WAS PASSED IN FROM THE PORTFOLIO PARENT AND GETS THE LATEST CLOSING PRICE THEN CALCULATES THE TOTAL AMOUNT BY MULTIPLYING 
+        let total=0;
+        this.state.portfolio.map(el=>
+            axios("https://obscure-temple-42697.herokuapp.com/api/prices/latest/"+el.symbol).then(response => {
+                add(response.data.close * el.owned);
         })
         .catch(function (error){
             alert('Error with api call ... error=' + error);
-        });*/
-        
-        let userPortfolio = jsondata.filter((element)=> element.user === this.state.userid);
-        // console.log(userPortfolio);
-        this.setState({owned:userPortfolio.length});
-        let pieData =[["smtg","smtgelse"]];
-        for (let singlestock of userPortfolio){
-            pieData.push([singlestock.symbol, singlestock.owned]); 
-        }
-        this.setState({pieData:pieData});
+        }));
+        let add = (equals)=>{total=total+equals; totalRecall(total)};
+        let totalRecall= (total)=>this.setState({total: total});
     }
     
+    //----------------------------------
+    // Adds a listener for the resize of the window so that the graph can display the legend properly
+    //----------------------------------
     componentWillMount() {
         // https://goshakkk.name/different-mobile-desktop-tablet-layouts-react/
-      window.addEventListener('resize', this.handleWindowSizeChange);
+        window.addEventListener('resize', this.handleWindowSizeChange);
     }
-    
+
+    //----------------------------------
+    // Detaches the listener for the resize of the window so that the graph can display the legend properly
+    //----------------------------------    
     componentWillUnmount() {
       window.removeEventListener('resize', this.handleWindowSizeChange);
     }
     
+    //----------------------------------
+    // Attached on component mount and detached at component unmount gets the options state of the graph and modifies the position of it to display properly on the resize of the document 
+    //----------------------------------
     handleWindowSizeChange = () => {
       this.setState({ width: window.innerWidth });          
       let options = this.state.options;
@@ -71,14 +77,23 @@ class PortfolioSummarySub extends Component {
       }
     };
 
+    formatToDollars=(value)=>{
+        //https://stackoverflow.com/questions/14467433/currency-formatting-in-javascript
+        return '$' + value.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }
         
     render(){
-        
+        // CHECK IF THE PIEDATA HAS BEEN POPULATED BEFORE RENDERING
         if (!this.state.pieData) {return null;}
             else return (
                 <div className="section">
+                    {/* Check if the total has been set yet and render when it does */}
+                    {this.state.total?
+                    <div>Total amount invested: {this.formatToDollars(this.state.total)}</div>:null}
                     <div>Total number of companies owned: {this.state.owned}</div>
+                    <br/>
                     <div>
+                        {/* Piechart */}
                         <Chart
                           chartType="PieChart"
                           data={this.state.pieData}
@@ -89,7 +104,7 @@ class PortfolioSummarySub extends Component {
                           legend_toggle
                         />
                     </div>
-                    <div>{this.props.params}</div>
+                    {/*<div>{this.props.params}</div>*/}
                 </div>
             );
            

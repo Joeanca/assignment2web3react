@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 class Home extends Component {
-    constructor(props){
+   constructor(props){
         super(props);
-        this.state = {
-            something: []
+        this.state={
+            userid: this.props.userid,
         };
     }
+     
     render(){
         return(
             <article className="section">

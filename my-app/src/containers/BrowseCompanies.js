@@ -1,14 +1,12 @@
 /*Browse Companies. For this view, display a list of companies (and their logos) sorted by name. Each company name will be a link/route to a Single Company view. */
-
-// TODO: Implement api call to new website, SEE IF WE CAN DO IT WITH A DESIGN LAYER!
-// TODO: CSS (remove table and implement another type of layout, looks like crad on iPad viewport) and comments
+// TODO: CSS (remove table and implement another type of layout, looks like crap on iPad viewport) and comments
 
 
 
 import React, { Component } from 'react';
-// import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import jsondata from '../jsonFiles/companies.json';
+import axios from 'axios';
+
 
 class BrowseCompanies extends Component {
     constructor(props){
@@ -19,16 +17,12 @@ class BrowseCompanies extends Component {
     }
 
     componentDidMount(){
-        //remove the line below once the api has been implemented!
-        this.setState({companies:jsondata.sort((a,b)=>{ let result  =0; if(a.name>b.name){result=1;}else if(b.name>a.name){result=-1;} return result;})});
-        
-        
-        /*axios.get().then(response => {
+        axios.get("https://obscure-temple-42697.herokuapp.com/api/companies/list").then(response => {
             this.setState({companies:response.data.sort((a,b)=>{ let result  =0; if(a.name>b.name){result=1;}else if(b.name>a.name){result=-1;} return result;})});
         })
         .catch(function (error){
             alert('Error with api call ... error=' + error);
-        });*/
+        });
     }
     
     
@@ -63,7 +57,7 @@ class BrowseCompanies extends Component {
                                             </div>
                                         </NavLink>
                                     </td>
-                                    <td><NavLink to={"/company/" + company.symbol} key={ind}>{company.name}</NavLink></td>
+                                    <td><NavLink to={"/company/" + company.symbol} symbol={company.symbol} key={ind}>{company.name}</NavLink></td>
                                     </tr>
                                 );
                             }):null

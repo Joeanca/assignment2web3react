@@ -6,19 +6,31 @@ class HeaderBar extends React.Component {
         super(props);
         this.state = {
             //This state property is the handler for the burger menu displayed only in mobile form
-            showMenu: false
+            showMenu: false,
+            // states available through user: id, first_name, last_name, email
+            user: this.props.user,
+            logout: this.props.logoutfn,
+            optionsArray: [{path:"/companies", legend:"Companies", msg: "Browse the companies in our system" },{path:"/portfolio", legend: "Portfolio", msg: "Browse your portfolio"},{path:"/visualizer", legend: "Stock Visualizer", msg: "Interactive stock information"},{path:"/aboutus", legend:"About Us", msg: "Find out more about this system"},{path:"/", legend: "Logout", msg: null}]
         };
     }
+    
+    //-----------------------------------------------------
     // Displays the desktop menu onMouseIn
+    //-----------------------------------------------------
     triggerMenu = ()=>{
        document.querySelector('#mainMenu').classList.add("is-active");
     }
+    //-----------------------------------------------------
     // Removes the desktop menu onMouseOut
+    //-----------------------------------------------------
     removeMenu = ()=>{
        document.querySelector('#mainMenu').classList.remove("is-active");
 
     }
+    
+    //-----------------------------------------------------
     //Toggles the burger menu on mobile and on click of a menu item
+    //-----------------------------------------------------
     toggleMenu = ()=>{
         if (this.state.showMenu){
             this.setState({showMenu:false})
@@ -28,7 +40,7 @@ class HeaderBar extends React.Component {
         document.querySelector('#navBurger').classList.toggle("is-active");
         document.querySelector('.navbar-menu').classList.toggle("is-active");
     }
-
+    
     render(){
         return(
         <nav className="navbar is-primary"> 
@@ -39,9 +51,8 @@ class HeaderBar extends React.Component {
                     </span>                 
                 </a>                
                 <NavLink className="navbar-item" to={ {pathname: "/home" }}>                   
-                        <h1 className="title is-3">Assignment 1</h1>
+                        <h1 className="title is-3">Welcome: {this.state.user.first_name} {this.state.user.last_name}</h1>
                 </NavLink>
-                
                 {/* empty container found to be needed as a place holder for the burger meny contracted*/}
                 <a className=" navbar-burger" id="navBurger" onClick={this.toggleMenu}>
                      <span></span>
@@ -49,33 +60,26 @@ class HeaderBar extends React.Component {
                      <span></span>
                 </a>
             </div>
-            
             {/* Contracted burger menu at start */}
             <div className="navbar-menu  navbar-dropdown">
                 <div className="navbar-end">
-                     <NavLink className="navbar-item" to={ {pathname: "/companies" }} onClick={this.toggleMenu} >
-                        <div className="">Companies</div>
-                        <div>Browse the companies in our system</div>
-                     </NavLink>
-                    <hr />
-                     <NavLink className="navbar-item" to={ {pathname: "/portfolio" }} onClick={this.toggleMenu}>
-                        <div>Portfolio</div>
-                        <div>Browse your portfolio</div>
-                     </NavLink>
-                     <hr />
-                     <NavLink className="navbar-item" to={ {pathname: "/visualizer" }} onClick={this.toggleMenu}>
-                        <div>Stock Visualizer</div>
-                        <div>Interactive stock information</div>
-                     </NavLink>
-                     <hr />
-                     <NavLink className="navbar-item" to={ {pathname: "/aboutus" }} onClick={this.toggleMenu}>
-                        <div>About Us</div>
-                        <div>Find out more about this system</div>
-                     </NavLink>
+                    {/* EACH ELEMENT IS ITERATED FROM THE OPTIONSARRAY */}
+                    {this.state.optionsArray.map((option, ind)=>{
+                     return (
+                         <div key={ind}>
+                             <NavLink className="navbar-item" to={ {pathname: option.path }} onClick={option.msg?this.toggleMenu:this.state.logout} >
+                                <div className="">{option.legend}</div>
+                                <div>{option.msg}</div>
+                             </NavLink>
+                             {option.msg?
+                             <hr className="dropdown-divider"/>:null}
+                        </div>
+                    )})}
                 </div>
             </div>
             {/* Desktop menu, not visible on mobile*/}
             <div className="navbar-end is-hidden-touch" id="desktop-menu" >
+            {/* SINCE THERE IS NO MSG OPTION ON LOGOUT IT RENDERS DIFFERENT FUNCTIONS ON CLICK */}
             <div id="mainMenu" className="dropdown is-right  is-fullheight" onMouseOver ={()=> this.triggerMenu()} onMouseOut={()=>this.removeMenu()}>
               <div className="dropdown-trigger" >
                 <button className="button is-primary  is-fullheight" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -87,25 +91,19 @@ class HeaderBar extends React.Component {
               </div>
               <div className="dropdown-menu" id="dropdown-menu" role="menu">
                 <div className="dropdown-content">
-                  <NavLink to={ {pathname: "/companies" }} className="dropdown-item">
-                    <div className="">Companies</div>
-                    <div>Browse the companies in our system</div>
-                  </NavLink>
-                  <hr className="dropdown-divider"/>
-                  <NavLink to={ {pathname: "/portfolio" }} className="dropdown-item">
-                    <div>Portfolio</div>
-                    <div>Browse your portfolio</div>
-                  </NavLink>
-                  <hr className="dropdown-divider"/>
-                  <NavLink to={ {pathname: "/visualizer" }} className="dropdown-item">
-                    <div>Stock Visualizer</div>
-                    <div>Interactive stock information</div>
-                  </NavLink>
-                  <hr className="dropdown-divider"/>
-                  <NavLink to={ {pathname: "/aboutus" }} className="dropdown-item is-info is-hovered">
-                    <div>About Us</div>
-                    <div>Find out more about this system</div>
-                  </NavLink>
+                  {/* EACH ELEMENT IS ITERATED FROM THE OPTIONSARRAY */}
+                    {this.state.optionsArray.map((option, ind)=>{
+                        return (
+                          <div key={ind}>
+                              {/* SINCE THERE IS NO MSG OPTION ON LOGOUT IT RENDERS DIFFERENT FUNCTIONS ON CLICK */}
+                              <NavLink to={option.path} className="dropdown-item" onClick={option.msg?null:this.state.logout}>
+                                <div className="">{option.legend}</div>
+                                <div>{option.msg}</div>
+                              </NavLink>
+                              {option.msg?
+                                 <hr className="dropdown-divider"/>:null}
+                          </div>
+                        )})}
                 </div>
               </div>
             </div>
