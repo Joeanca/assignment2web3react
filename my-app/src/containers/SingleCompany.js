@@ -3,6 +3,7 @@
 //TODO: SORTING
 
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import CompanySummarySub from './CompanySummarySub.js';
 import CompanyListSub from './CompanyListSub.js';
@@ -69,6 +70,13 @@ class SingleCompany extends Component {
             /* eslint-disable react-in-jsx-scope */
             return(
             <article className="section">
+                <nav className="breadcrumb" aria-label="breadcrumbs">
+                  <ul>
+                    <li><NavLink to={"/" }>Home</NavLink></li>
+                    <li><NavLink to={"/companies" }>Companies</NavLink></li>
+                    <li className="is-active"><span >&nbsp;&nbsp;</span>{this.state.company?this.state.company.name:"loading..."}</li>
+                  </ul>
+                </nav>
                 <div className="card-image box is-marginless column">
                     <div className="container logo">
                         <figure className="image image is-3by2">

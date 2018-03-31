@@ -4,6 +4,7 @@
 
 
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import PortfolioSummarySub from './PortfolioSummarySub.js';
 import PortfolioInfoSub from './PortfolioInfoSub.js';
 import axios from 'axios';
@@ -64,6 +65,12 @@ class BrowsePortfolio extends Component {
     render(){
         return(
             <article className="section">
+                 <nav className="breadcrumb" aria-label="breadcrumbs">
+                  <ul>
+                    <li><NavLink to={"/" }>Home</NavLink></li>
+                    <li className="is-active"><span >&nbsp;&nbsp;</span>Portfolio</li>
+                  </ul>
+                </nav>
                 {/* Render tabs and pass in props*/}
                 <div className="tabs is-boxed is-fullwidth is-marginless">
                     <ul>

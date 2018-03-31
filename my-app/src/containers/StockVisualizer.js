@@ -1,6 +1,7 @@
 /* 9.Stock Visualizer. For this view, display a line chart of the close values for a single month for up to three stocks. That is, the x-axis will contain the days, while the y-axis will be money. There should be four drop-down lists: one to select month, the others to select stocks. The drop-down should display symbol and name. Be sure to use different colors for each line. */
 
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { Chart } from 'react-google-charts';
 
@@ -247,6 +248,12 @@ class StockVisualizer extends Component {
     render(){
         return(
             <div className="section" id="dropdown_container">
+                <nav className="breadcrumb" aria-label="breadcrumbs">
+                  <ul>
+                    <li><NavLink to={"/" }>Home</NavLink></li>
+                    <li className="is-active"><span >&nbsp;&nbsp;</span>Stock Visualizer</li>
+                  </ul>
+                </nav>
                 <div className="columns">
                     <div className="column">
                         <div>
