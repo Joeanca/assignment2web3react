@@ -13,19 +13,20 @@ import NotFound from './components/NotFound.js';
 import AboutUs from './components/AboutUs.js';
 
 //-----------------------------------------------------
-//
+// ROOT ELEMENT FOR THE APP, REDIRECTS TO LOGIN IF THE FLAG ISAUTHENTICATED IS FALSE
 //-----------------------------------------------------
 class App extends Component {
     constructor(props){
         super(props);
         this.state = {
           userid:-1,
-          isAuthenticated : false
+          isAuthenticated : false,
+          startNoLogin: true
         };
     }
     
     //-----------------------------------------------------
-    //
+    // FUNCTION PASSED INTO THE LOGIN.JS ALLOWING THE CHANGE IN STATE WHICH HELPS TO REDIRECT TO THE REQUESTED PAGE.
     //-----------------------------------------------------
     changeAuth=(bool, user)=>{
         if (user){
@@ -38,14 +39,14 @@ class App extends Component {
     }
     
     //-----------------------------------------------------
-    //
+    // USES THE ISAUTHENTICATED FLAG TO PROMPT THE APP TO REDIRECT TO THE LOGIN ON FALSE
     //-----------------------------------------------------
     logout=()=>{
         this.setState({isAuthenticated: false});
     }
    
     //-----------------------------------------------------
-    //
+    // CALL ON ROUTE RENDER FROM THE APP.JS RENDER FUNCTION, IF TRUE IT RETURNS A PASSED IN COMPONENT WITH ITS RESPECTIVE PROPS. OTHERWISE IT CALLS THE REDIRECT FUNCTION TO RENDER THE LOGIN
     //----------------------------------------------------- 
     checkAuth=(component)=>{
       if (this.state.isAuthenticated){
@@ -56,9 +57,9 @@ class App extends Component {
     }
    
     //-----------------------------------------------------
-    //
+    // CALLED BY CHECKAUTH IF ISAUTHENTICATED IS FALSE. REDIRECTS TO THE LOGIN SCREEN 
     //-----------------------------------------------------
-    redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} {...props} />) } />)
+    redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} startNoLogin={this.state.startNoLogin}{...props} />) } />)
    
    
    render() {
@@ -74,7 +75,7 @@ class App extends Component {
             <Route path="/home" exact render={(props) => this.checkAuth(<Home userid={this.state.userid} />) }/>
             <Route path="/companies" exact render={(props) => this.checkAuth(<BrowseCompanies userid={this.state.userid}  />)}/>
             <Route path="/portfolio" exact render={(props) => this.checkAuth(<BrowsePortfolio userid={this.state.userid}  />) }/>
-            <Route path="/login" exact render={(props) => (<Login userid={this.state.userid}  auth={this.changeAuth} history={this.history} from={props.location} isAuthenticated={this.state.isAuthenticated}/>) }/>
+            <Route path="/login" exact render={(props) => (<Login auth={this.changeAuth} history={this.history} from={props.location} />) }/>
             <Route path="/company/:id" exact render={(props) => this.checkAuth(<SingleCompany {...props} userid={this.state.userid} />) }/>
             <Route path="/visualizer" exact render={(props) => this.checkAuth(<StockVisualizer  userid={this.state.userid} />) }/>
             <Route path="/aboutus" exact render={(props) => this.checkAuth(<AboutUs userid={this.state.userid} />) }/>

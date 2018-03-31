@@ -276,8 +276,10 @@ class StockVisualizer extends Component {
                             </div>
                         </div>
                     </div>
-                    {/* RENDER THE THREE DROPDOWNS FOR THE STOCKS IF THE BOOLEAN DISPLAYDROPDATA IS TRUE */}
-                    {this.state.displayDropData?this.createDropdowns():null}
+                    {/* RENDER THE THREE DROPDOWNS FOR THE STOCKS IF THE BOOLEAN DISPLAYDROPDATA IS TRUE OTHERWISE DISPLAY A MESSAGE*/}
+                    {this.state.displayDropData?this.createDropdowns():
+                        <div>To choose stocks and display a graph please first choose the month you wish to see the data for</div>
+                    }
                 </div>
 
                 <div>

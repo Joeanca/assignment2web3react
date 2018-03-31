@@ -26,8 +26,6 @@ class SingleCompany extends Component {
     // Once the component mounts it calls the api as described below
     //----------------------------------
     componentDidMount(){
-        console.log(this.props);
-        // console.log(this.props.props.match.params.id);
         // GET THE SUMMARY INFORMATION FOR THE COMPANY FROM THE SYMBOL AND SETS THE STATE
         axios.get("https://obscure-temple-42697.herokuapp.com/api/companies/" + this.state.symbol).then(response => {
             let tempData = response.data[0];

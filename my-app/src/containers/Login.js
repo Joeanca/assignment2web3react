@@ -3,21 +3,9 @@
 import React, { Component } from 'react';
 import { Redirect  } from 'react-router-dom';
 import axios from 'axios';
-// import { NavLink } from 'react-router-dom';
-
-//TODO : email format validation
-//TODO : password hashing and communication
-
-
-
-// EXAMPLE OF LOGIN
-// https://reacttraining.com/react-router/web/example/auth-workflow
-//https://tylermcginnis.com/react-router-protected-routes-authentication/
-
-
 
 //-----------------------------------------------------
-//
+//  USER IS REDIRECTED TO THIS SCREEN IF THE FLAG ISAUTHENTICATED IS NOT SET TO TRUE. THE CHANGEAUTH FUNCTION IS PASSED IN AS PROPS WHICH CONTROLS THE ISAUTHENTICATED FLAG IN APP.JS
 //-----------------------------------------------------
 class Login extends Component {
   constructor(props){
@@ -27,29 +15,22 @@ class Login extends Component {
             auth: this.props.changeAuth,
             isAuthenticated: this.props.isAuthenticated,
             redirectToReferrer: '',
-            smtgWrong: false
+            smtgWrong: false,
+            startNoLogin: this.props.startNoLogin
         };
     }
-
+  componentWillMount=()=>{if(this.props.startNoLogin){this.bypasslogin()}}
+  
   //-----------------------------------------------------
-  //
+  // SETS THE EMAIL AND PASSWORD STATE TO FAKE A LOGIN FOR DEBUGGIN PURPOSSES
   //-----------------------------------------------------
   bypasslogin = () => {
      let setpswd =()=>{this.setState({pswd: "funwebdev" },this.login)};
       this.setState({email: "ccrigin3@nbcnews.com" },setpswd);
   };
-
-  //-----------------------------------------------------
-  //
-  //-----------------------------------------------------
-  componentDidMount=()=>{
-      this.setState({tempemail: "ccrigin3@nbcnews.com" });
-      this.setState({temppswd: "funwebdev" });
-
-  }
   
   //-----------------------------------------------------
-  //
+  // GETS THE USER DETAILS AND SETS THEM AT ROOT LEVEL, SIGNS IN AND SAVES THE STATE OF THE USER.
   //-----------------------------------------------------
   login = () => {
       if (this.state.email && this.state.pswd){
@@ -63,6 +44,7 @@ class Login extends Component {
         }).then(response => {
             if (!response.data.message){
                   let user = response.data[0];
+                  // SETS THE LOGIN TO TRUE ON SUCCESSFUL IDENTIFICATION OF THE CLIENT AND SENDS THE USER ELEMENT RETURNED
                   this.props.auth(true, user);
             }else this.displayDivError("Please check your credentials and try again");
         })
@@ -70,6 +52,7 @@ class Login extends Component {
             alert('Error with api call ... error=' + error);
         });   
       }else{
+          // DISPLAYS A GENERIC MESSAGE TELLING THE CLIENT TO USE THE RIGHT CREDENTIALS 
           this.setState({smtgWrong: true});
       }
       
@@ -77,11 +60,13 @@ class Login extends Component {
   };
   
   //-----------------------------------------------------
-  //
+  // CHECKS THE INPUT ON THE EMAIL AND PASSWORD INPUT FIELDS, IF VALID SETS THE STATE OF THE ITEMS SO THAT ONCE THE USER CLICKS SUBMIT IT IS READILY AVAILABLE. 
   //-----------------------------------------------------
   handleOnChange = ( el ) => {
       if (el.target.id === "email"){
       this.setState({tempemail:el.target.value});
+      // CHECKS THE EMAIL INPUT AGAINS THE REGEX BELOW AND IF IT PASSES IT SETS THE EMAIL STATE
+      // https://gist.github.com/cgkio/7268045
       let re =  /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       if (re.test(el.target.value)) {
         document.querySelector("#email").classList.remove("is-danger");
@@ -94,6 +79,7 @@ class Login extends Component {
       }
       if (el.target.id === "pswd"){
             this.setState({temppswd: [el.target.value]});
+          // CHECKS THE LENGTH OF THE PASSWORD AND IF IT PASSES THEN SETS THE STATE OF THE PASSWORD
           if (el.target.value.length > 6){
             document.querySelector("#pswd").classList.remove("is-danger");
                 this.setState({pswd: [el.target.value]})
@@ -103,12 +89,15 @@ class Login extends Component {
       }
     }
   }
-  
+
+  //-----------------------------------------------------
+  // DISPLAYS AN ERROR MESSAGED PASSED IN INTO A DIV ABOVE THE EMAIL INPUT FIELD.
+  //-----------------------------------------------------
   displayDivError=(mssg)=>{
       this.setState({smtgWrong: true});
       document.querySelector("#error").innerHTML = mssg;
   }
-  
+
   render() {
     const { from } = this.props.location.pathname|| { from: { pathname: "/" } };
     if (this.state.redirectToReferrer) {
@@ -116,7 +105,6 @@ class Login extends Component {
     }
     return(
           <div>
-            
             <article className="section">
             {/* https://pixabay.com/en/coins-currency-investment-insurance-948603/ */}
                 <div>
