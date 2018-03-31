@@ -258,7 +258,6 @@ class StockVisualizer extends Component {
                                         <i className="fas fa-angle-down" aria-hidden="true"></i>
                                         </span> 
                                     </button>
-                                    
                                 </div>
                                 <div className="dropdown-menu" id="dropdown-menu1" role="menu">
                                     <div className="dropdown-content">
@@ -278,7 +277,7 @@ class StockVisualizer extends Component {
                     </div>
                     {/* RENDER THE THREE DROPDOWNS FOR THE STOCKS IF THE BOOLEAN DISPLAYDROPDATA IS TRUE OTHERWISE DISPLAY A MESSAGE*/}
                     {this.state.displayDropData?this.createDropdowns():
-                        <div>To choose stocks and display a graph please first choose the month you wish to see the data for</div>
+                        <div>To choose stocks and display data graphs please first choose the month you wish to see the data for</div>
                     }
                 </div>
 
