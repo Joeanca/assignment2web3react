@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch  } from 'react-router-dom';
-import './App.css';
+import './styles/base/app.scss';
 
 import HeaderBar from './components/HeaderBar.js';
 import Home from './containers/Home.js';
@@ -21,6 +21,7 @@ class App extends Component {
         this.state = {
           userid:-1,
           isAuthenticated : false,
+          // CHANGE THIS FLAG TO TRIGGER LOGIN, TRUE = BYPASS LOGIN, FALSE = DISPLAY LOGIN
           startNoLogin: true
         };
     }
