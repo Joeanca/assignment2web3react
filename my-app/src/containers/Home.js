@@ -19,6 +19,9 @@ class Home extends Component {
                 <NavLink to="/company" className="button is-primary is-fullwidth" >company.</NavLink>
                 <NavLink to="/visualizer" className="button is-primary is-fullwidth" >visualizer.</NavLink>
                 <NavLink to="/aboutus" className="button is-primary is-fullwidth" >aboutus.</NavLink>
+                <NavLink to="/notification" className="button is-primary is-fullwidth" >Notification</NavLink>
+                <NavLink to="/chat" className="button is-primary is-fullwidth" >chat</NavLink>
+
             </article>
         );
     }

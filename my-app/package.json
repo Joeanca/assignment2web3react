@@ -7,12 +7,16 @@
     "bulma": "^0.6.2",
     "fusioncharts": "^3.12.2",
     "react": "^16.2.0",
+    "react-chat-window": "^1.0.8",
     "react-dom": "^16.2.0",
     "react-easy-chart": "^1.0.0",
     "react-fusioncharts": "^1.0.4",
     "react-google-charts": "^1.5.7",
+    "react-live-chat": "^0.2.5",
+    "react-notifications": "^1.4.3",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "socket.io-client": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
