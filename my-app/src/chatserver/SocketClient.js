@@ -3,9 +3,10 @@ const io = require('socket.io-client')
 export default function () {
   const socket = io.connect('http://localhost:5000')
 
-  function registerHandler(onMessageReceived, onUserJoin) {
-    socket.on('message sent', onMessageReceived)
+  function registerHandler(onMessageReceived, onUserJoin, updateChat) {
+    socket.on('server message', onMessageReceived)
     socket.on('joined', onUserJoin)
+    socket.on('', updateChat)
     
   }
 
@@ -18,7 +19,7 @@ export default function () {
     console.log(err)
   })
 
-  socket.on('message', function (err) {
+  socket.on('send message', function (err) {
     console.log('received message from server')
     console.log(err)
   })

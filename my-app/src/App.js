@@ -70,8 +70,26 @@ class App extends Component {
     return (
       <div>
         {/* checks if logged in and passes the user data */}
-        {this.state.isAuthenticated?<HeaderBar logoutfn={this.logout} user={this.state.wholeUser}/>:
+        {this.state.isAuthenticated?<HeaderBar
+         logoutfn={this.logout} 
+         user={this.state.wholeUser}
+         chatHistory={[]} 
+          onSendMessage={(message) => this.state.client.message(message)}
+          registerHandler={this.state.client.registerHandler}
+          unregisterHandler={this.state.client.unregisterHandler}
+          client={this.state.client}
+         />:
            null
+        }
+        {this.state.isAuthenticated?<Chat userid={this.state.userid} 
+                  user={this.state.wholeUser} 
+                  chatHistory={[]} 
+                  onSendMessage={(message) => this.state.client.message(message)}
+                  registerHandler={this.state.client.registerHandler}
+                  unregisterHandler={this.state.client.unregisterHandler}
+                  client={this.state.client}
+                />
+                : null
         }
         <main >
           <Switch >
@@ -84,18 +102,6 @@ class App extends Component {
             <Route path="/visualizer" exact render={(props) => this.checkAuth(<StockVisualizer  userid={this.state.userid} />) }/>
             <Route path="/aboutus" exact render={(props) => this.checkAuth(<AboutUs userid={this.state.userid} />) }/>
             <Route path="/notification" exact render={(props) => this.checkAuth(<Notification userid={this.state.userid} user={this.state.wholeUser}/>) }/>
-            
-            <Route path="/chat" exact render={(props) => 
-              this.checkAuth(<Chat userid={this.state.userid} 
-                  user={this.state.wholeUser} 
-                  chatHistory={[]} 
-                  onSendMessage={(message) => this.state.client.message(message)}
-                  registerHandler={this.state.client.registerHandler}
-                  unregisterHandler={this.state.client.unregisterHandler}
-                  client={this.state.client}
-                />) 
-              }
-            />
 
             <Route render={(props) => this.checkAuth(<NotFound userid={this.state.userid} />) }/>
           </Switch>

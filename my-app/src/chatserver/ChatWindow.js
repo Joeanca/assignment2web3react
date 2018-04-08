@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
-import {render} from 'react-dom'
 import {Launcher} from 'react-chat-window'
-import {Socket} from './SocketClient.js'
-import Notification from '../containers/notification.js'
 
 class Chat extends Component {
 
@@ -25,8 +22,7 @@ class Chat extends Component {
       }
     
       componentDidMount() {
-        this.props.registerHandler(this._sendMessage, this.onUserJoin)
-        this.scrollChatToBottom()
+        this.props.registerHandler(this._sendMessage, this.onUserJoin, this.updateChatHistory)
       }
     
       componentDidUpdate() {
@@ -50,14 +46,15 @@ class Chat extends Component {
       onUserJoin() {
         this.props.client.join(JSON.stringify("User login"));
         
-        <Notification type="info" />
-        
+      }
+
+      diplaySender(user){
       }
 
       _onMessageWasSent(message) {
-        this.setState({
-            chatHistory: [...this.state.chatHistory, message]
-        });
+        //this.setState({
+        //    chatHistory: [...this.state.chatHistory, message]
+        //});
         console.log("on message was sent: " + JSON.stringify(message));
         //message.author = this.props.user;
         this.props.client.message(JSON.stringify(message), JSON.stringify(this.props.user));
@@ -69,17 +66,15 @@ class Chat extends Component {
         var parsedMessage = JSON.parse(parsedIn.message);
         var parseduser = JSON.parse(parsedIn.user);
         console.log("senderID: " + parseduser.id);
-        console.log("receiverID: " + this.props.user.id);
+        console.log("receiverID: " + this.props.userid);
         
-        if(parseduser.id === this.props.user.id){
-          parsedIn.author = "me";
-        }
+        parseduser.id === this.props.userid ? parsedIn.author = "me" : parsedIn.author = parseduser.first_name + " " + parseduser.last_name;
         console.log("Author " + parsedIn.author);
         if (parsedIn.message.length > 0) {
             this.setState({
                 chatHistory: [...this.state.chatHistory, {
                 author: parsedIn.author,
-                type: 'text',
+                type: parsedMessage.type,
                 data: parsedMessage.data
               }]
             })
@@ -104,6 +99,7 @@ class Chat extends Component {
         }}
         onMessageWasSent={this._onMessageWasSent}
         messageList={this.state.chatHistory}
+        activeUser={this.props.user}
         showEmoji
       />
     </div>)

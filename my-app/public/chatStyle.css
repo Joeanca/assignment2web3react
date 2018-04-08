@@ -148,3 +148,9 @@
     width: 100%;
   }
   
+  .message--sender{
+    position:relative !important;
+    top:50px !important;
+    height:20px !important;
+    font-size: 0.5em !important;
+  }
