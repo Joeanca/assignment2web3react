@@ -288,4 +288,10 @@ $dblue: #5DA2D5; //Blue - Dark Accent
     color:black;
 }.sc-launcher{
     background-color:$lblue;
+}.sc-message-list{
+    background-color: $dblue;
+}.message--author{
+    // radius corners, padding bottom
+    background-color:$pink;
+    padding: 15px;
 }

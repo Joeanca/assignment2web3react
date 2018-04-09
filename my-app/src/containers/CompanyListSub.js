@@ -48,7 +48,7 @@ class CompanyListSub extends Component{
                 <div className="section" id="dropdown_container">
                     <div className="dropdown" id="drop1" onClick={()=>this.toggleDropdown("drop1")}>
                         <div className="dropdown-trigger">
-                            <button className="button is-primary is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu1">
+                            <button className="button is-primary is-fullwidth is-inverted" aria-haspopup="true" aria-controls="dropdown-menu1">
                                 {/* IF THE MONTH IS SET DISPLAYS THE MONTH OTHERWISE ASKS TO CHOOSE A MONTH  */}
                               <span>{this.state.month?this.state.month:"Choose a month"}</span>
                               <span className="icon is-small">

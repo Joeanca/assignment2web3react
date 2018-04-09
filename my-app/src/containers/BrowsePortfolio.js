@@ -40,6 +40,7 @@ class BrowsePortfolio extends Component {
             }
             this.setState({pieData: pieData});
             this.setState({portfolio: portfolioInfo});// GETS THE SUMMARY OF STOCKS OWNED AND DISPLAYS AS A PERCENTAGE
+            // console.log(portfolioInfo);
         })
         .catch(function (error){
             alert('Error with api call ... error=' + error);

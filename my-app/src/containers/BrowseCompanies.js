@@ -46,6 +46,7 @@ class BrowseCompanies extends Component {
                                 return (
                                     <div className = "column is-4">
                                         <div className = "card">
+                                             <NavLink to={"/company/" + company.symbol} className="" symbol={company.symbol} key={ind}>
                                             <div className="card-image">
                                                 <div className="box is-centered">
                                                     {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
@@ -54,6 +55,7 @@ class BrowseCompanies extends Component {
                                                     </figure>
                                                 </div>
                                             </div>
+                                            </NavLink>
                                             <div className="card-content">
                                                 <div className = "media">
                                                     <div className = "media-content">

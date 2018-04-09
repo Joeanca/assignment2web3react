@@ -37,13 +37,16 @@ class PortfolioSummarySub extends Component {
         this.setState({owned: (this.state.pieData.length-1)});
         // CALLS FOR EACH OF THE ELEMENTS OF THE PORTFOLIO ARRAY WHICH WAS PASSED IN FROM THE PORTFOLIO PARENT AND GETS THE LATEST CLOSING PRICE THEN CALCULATES THE TOTAL AMOUNT BY MULTIPLYING 
         let total=0;
+        let portfolioPrices = [];
         this.state.portfolio.map(el=>
             axios("https://obscure-temple-42697.herokuapp.com/api/prices/latest/"+el.symbol).then(response => {
+                portfolioPrices.push(response.data);
                 add(response.data.close * el.owned);
         })
         .catch(function (error){
             alert('Error with api call ... error=' + error);
         }));
+        // console.log(portfolioPrices);
         let add = (equals)=>{total=total+equals; totalRecall(total)};
         let totalRecall= (total)=>this.setState({total: total});
     }
@@ -90,7 +93,7 @@ class PortfolioSummarySub extends Component {
                 <div className = "columns">
                     <div className = "column is-half">
                         <div className = "box">
-                            <div class = "card">
+                            <div className = "card">
                                 <header className = "card-header">
                                     <p className = "card-header-title">
                                         Investment Summary

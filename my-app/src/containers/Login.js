@@ -30,13 +30,13 @@ class Login extends Component {
         
     }
     componentDidMount() {
-      console.log("mounted: " + this.props.client);
+      // console.log("mounted: " + this.props.client);
       
       //this.props.loginHandler(successfullLogin, onLogout);
     }
     componentWillMount=()=>{
       if(this.props.startNoLogin){
-        this.bypasslogin()
+        //this.bypasslogin()
       }
       this.props.loginHandler(this.onLogin);
     }
@@ -44,11 +44,11 @@ class Login extends Component {
     successfullLogin = (user)=> {        
       //sends successful login to chatserver to generate notification
       var username = user.first_name + " " + user.last_name;
-      console.log("login message was sent: " + JSON.stringify(username));
+      // console.log("login message was sent: " + JSON.stringify(username));
       //message.author = this.props.user;
       if(this.props.client){
 
-        console.log(this.props.client);
+        // console.log(this.props.client);
         this.props.client.login(JSON.stringify(username));    
       }
    };
@@ -58,7 +58,6 @@ class Login extends Component {
   //CALLED BY CHAT SERVER TO DISPLAY NOTIFICATIONS
   //--------------------------------------------------
   onLogin (message){
-    console.log("user logged in: " + JSON.stringify(message));
     this.props.notification('login', message.username);
 
   };

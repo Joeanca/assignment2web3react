@@ -228,3 +228,10 @@ ul {
 
 .sc-launcher {
   background-color: #90CCF4; }
+
+.sc-message-list {
+  background-color: #5DA2D5; }
+
+.message--author {
+  background-color: #F78888;
+  padding: 15px; }

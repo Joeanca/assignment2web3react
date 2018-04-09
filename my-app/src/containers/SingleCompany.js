@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import CompanySummarySub from './CompanySummarySub.js';
 import CompanyListSub from './CompanyListSub.js';
-import  '../styles/home/home.scss';
+import  '../styles/singleCompany/singleCompany.scss';
 
 
 //----------------------------------
@@ -81,22 +81,18 @@ class SingleCompany extends Component {
                       </ul>
                     </nav>
                     <div className = "card">
+                        <header className="card-header">
+                            <p className="card-header-title is-centered is-size-1">{this.state.company.name}</p>
+                        </header>
                         <div className = "card-image">
-                            <div className = "section is-centered">
-                                <figure className = "image is-3by2">
+                            <div className="container is-small">
+                                <figure className="section">
                                     {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
-                                    <img src={process.env.PUBLIC_URL + '/logos/'+ this.state.symbol+ '.svg'} alt={this.state.symbol} />
+                                    <img id="logo" src={process.env.PUBLIC_URL + '/logos/'+ this.state.symbol+ '.svg'} alt={this.state.symbol} />
                                 </figure>
                             </div>
                         </div>
                         <div className = "card-content">
-                            <div className = "media">
-                                <div className = "media-content">
-                                    <p className = "title is-1">
-                                        {this.state.company.name}
-                                    </p>
-                                </div>
-                            </div>
                             {/* RENDER TABS AND PASS IN PROPS TO THE COMPONENTS WITHIN THE TABS */}
                             <div className="tabs is-boxed is-fullwidth is-marginless">
                                 <ul>

@@ -216,10 +216,10 @@ class StockVisualizer extends Component {
             let drop = "data"+i;
             let name = drop+"name";
             elementsToReturn.push(
-                <div className="column" key={i}>
+                <div className="column is-one-fourth" key={i}>
                     <div className="dropdown is-fullwidth" id={drop}  onClick={()=>this.toggleDropdown(drop)}>
                             <div className="dropdown-trigger">
-                                <button className="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu2">
+                                <button className="button is-fullwidth is-primary is-inverted" aria-haspopup="true" aria-controls="dropdown-menu2">
                                   {/* CHECKS FOR THE STATUS OF THE ARRAY BEING POPULATED, IF IT ISNT DISPLAY CHOOSE A STOCK OTHERWISE DISPLAY THE SYMBOL AND NAME */}
                                   <span className="">{this.state[drop]? "["+this.state[drop][0].name+"] "+ this.state[name]:"Choose a stock"}</span>
                                   <span className="icon is-small is-pulled-right	">
@@ -247,6 +247,7 @@ class StockVisualizer extends Component {
     
     render(){
         return(
+            
             <div className="section" id="dropdown_container">
                 <nav className="breadcrumb" aria-label="breadcrumbs">
                   <ul>
@@ -254,57 +255,64 @@ class StockVisualizer extends Component {
                     <li className="is-active"><span >&nbsp;&nbsp;</span>Stock Visualizer</li>
                   </ul>
                 </nav>
-                <div className="columns">
-                    <div className="column">
-                        <div>
-                            <div className="dropdown is-fulwidth is-multiline" id="drop1" onClick={()=>this.toggleDropdown("drop1")}>
-                                <div className="dropdown-trigger control has-icon-left">
-                                    <button className="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu1">
-                                      <span className="is-fullwidth">{this.state.month?this.state.month:"Choose a month"}</span>
-                                      <span className="icon is-small is-pulled-right	">
-                                        <i className="fas fa-angle-down" aria-hidden="true"></i>
-                                        </span> 
-                                    </button>
-                                </div>
-                                <div className="dropdown-menu" id="dropdown-menu1" role="menu">
-                                    <div className="dropdown-content">
-                                    {/* populates the month dropdown with the months of the year */}
-                                    {this.state.months.map((month, ind) => {
-                                            let element = {month: month, drop: "drop1", num: month.num};
-                                            return(
-                                                <div className="dropdown-item" key={ind} onClick={()=>this.filterList({element})}>{month.mon}
-                                                </div>
-                                            );
-                                        })
-                                    }
+                <div className = "box">
+                <div className = "section" id = "dropdown_container">
+                    <div className = "columns is-multiline">
+                        <div className = "column is-one-quarter">
+                            <div>
+                                <div className = "dropdown is-fullwidth" id = "drop1" onClick={()=>this.toggleDropdown("drop1")}>
+                                    <div className = "dropdown-trigger">
+                                        <button className = "button is-primary is-inverted" aria-haspopup = "true" aria-controls = "dropdown-menu1">
+                                            <span>
+                                                {this.state.month?this.state.month:"Choose A Month"}
+                                            </span>
+                                            <span className = "icon is-small is-pulled-right">
+                                                <i className = "fas fa-angle-down" aria-hidden = "true">
+                                                </i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div className = "dropdown-menu" id = "dropwdown-menu1" role = "menu">
+                                        <div className = "dropdown-content">
+                                            {/* populates the month dropdown with the months of the year */}
+                                            {this.state.months.map((month, ind) => {
+                                                let element = {month: month, drop: "drop1", num: month.num};
+                                                    return (
+                                                        <div className = "dropdown-item" key = {ind} onClick = {() => this.filterList({element})}>{month.mon}
+                                                        </div>
+                                                    );
+                                                })
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {/* RENDER THE THREE DROPDOWNS FOR THE STOCKS IF THE BOOLEAN DISPLAYDROPDATA IS TRUE OTHERWISE DISPLAY A MESSAGE*/}
+                        {this.state.displayDropData?this.createDropdowns():
+                            <div>
+                                To choose stocks and display data graphs please first choose the month you wish to see the data for
+                            </div>
+                        }
                     </div>
-                    {/* RENDER THE THREE DROPDOWNS FOR THE STOCKS IF THE BOOLEAN DISPLAYDROPDATA IS TRUE OTHERWISE DISPLAY A MESSAGE*/}
-                    {this.state.displayDropData?this.createDropdowns():
-                        <div>To choose stocks and display data graphs please first choose the month you wish to see the data for</div>
-                    }
-                </div>
-
-                <div>
                     {/* Check to make sure the data is loaded and displays upon data load/ reload */}
                     {this.state.data?
-                    <div>
-                        <Chart
-                              chartType="LineChart"
-                              data={this.state.data}
-                              options={this.state.options}
-                              graph_id="LineChart"
-                              width="100%"
-                              height="400px"
-                              legend_toggle
-                        />
-                    </div>
+                        <div>
+                            <Chart
+                                chartType="LineChart"
+                                data={this.state.data}
+                                options={this.state.options}
+                                graph_id="LineChart"
+                                width="100%"
+                                height="400px"
+                                legend_toggle
+                            />
+                        </div>
                     : null}
-                </div>
+            </div>
+
                 
+            </div>
             </div>
         );
     }
