@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "main": "my-app/src/index.js",  
   "dependencies": {
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
@@ -108,5 +109,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+
   }
 }
