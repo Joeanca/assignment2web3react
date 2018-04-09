@@ -10,9 +10,12 @@ export default function () {
 
     
   }
-  function loginHandler(onLogin, onLogout){
+  function loginHandler(onLogin){
     socket.on('login', onLogin);
-    socket.on('logout', onLogout);
+  }
+
+  function logoutHandler(onLogout){
+    socket.on('logout', onLogout);    
   }
 
   function unregisterHandler() {
@@ -39,6 +42,7 @@ export default function () {
   }
 
   function logout(cb) {
+    console.log("logging out")
     socket.emit('logout', cb)
   }
 
@@ -63,6 +67,7 @@ export default function () {
     getAvailableUsers,
     registerHandler,
     unregisterHandler, 
-    loginHandler
+    loginHandler,
+    logoutHandler
   }
 }

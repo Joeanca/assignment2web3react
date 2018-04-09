@@ -8,7 +8,6 @@ I will provide you with more guidance on how best to implement this in Node and 
 import React, { Component } from 'react';
 import { Redirect  } from 'react-router-dom';
 import axios from 'axios';
-import notification from './notification.js';
 
 
 //-----------------------------------------------------
@@ -27,7 +26,6 @@ class Login extends Component {
             notify:false         
         };
         this.successfullLogin = this.successfullLogin.bind(this)
-        this.onLogout = this.onLogout.bind(this)
         this.onLogin = this.onLogin.bind(this)
         
     }
@@ -40,10 +38,11 @@ class Login extends Component {
       if(this.props.startNoLogin){
         //this.bypasslogin()
       }
-      this.props.loginHandler(this.onLogin, this.onLogout);
+      this.props.loginHandler(this.onLogin);
     }
   
-    successfullLogin = (user)=> {        //sends successful login to chatserver to generate notification
+    successfullLogin = (user)=> {        
+      //sends successful login to chatserver to generate notification
       var username = user.first_name + " " + user.last_name;
       console.log("login message was sent: " + JSON.stringify(username));
       //message.author = this.props.user;
@@ -55,10 +54,9 @@ class Login extends Component {
    };
 
     
-  
-  onLogout (message) {
-    console.log("user logged out");
-  };
+  //-----------------------------------------------
+  //CALLED BY CHAT SERVER TO DISPLAY NOTIFICATIONS
+  //--------------------------------------------------
   onLogin (message){
     console.log("user logged in: " + JSON.stringify(message));
     this.props.notification('login', message.username);

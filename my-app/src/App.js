@@ -27,8 +27,14 @@ class App extends Component {
           startNoLogin: true, 
           client: socketClient()
         };
+        this.onLogout = this.onLogout.bind(this)
+        this.createNotification = this.createNotification.bind(this)
+        
     }
-    
+    componentDidMount() {
+      console.log("app mounted" );      
+      this.state.client.logoutHandler(this.onLogout);
+    }
     //-----------------------------------------------------
     // FUNCTION PASSED INTO THE LOGIN.JS ALLOWING THE CHANGE IN STATE WHICH HELPS TO REDIRECT TO THE REQUESTED PAGE.
     //-----------------------------------------------------
@@ -46,9 +52,16 @@ class App extends Component {
     // USES THE ISAUTHENTICATED FLAG TO PROMPT THE APP TO REDIRECT TO THE LOGIN ON FALSE
     //-----------------------------------------------------
     logout=()=>{
+        console.log("user logging out");
+        //let username = this.state.user.first_name + " " + this.state.user.last_name;
+        //this.state.client.logout(username);
         this.setState({isAuthenticated: false});
     }
-   
+    
+    onLogout=(message)=>{
+      console.log("user logging out");      
+      //this.createNotification('logout', message.username);      
+    }
     //-----------------------------------------------------
     // CALL ON ROUTE RENDER FROM THE APP.JS RENDER FUNCTION, IF TRUE IT RETURNS A PASSED IN COMPONENT WITH ITS RESPECTIVE PROPS. OTHERWISE IT CALLS THE REDIRECT FUNCTION TO RENDER THE LOGIN
     //----------------------------------------------------- 
@@ -78,6 +91,10 @@ class App extends Component {
           case 'success': 
             NotificationManager.success('Success message', 'Title here');
             break;
+          case 'logout':
+            console.log("creating logout notification");
+            NotificationManager.info(message, username , 3000);
+            break;  
           case 'warning':
             NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
             break;
