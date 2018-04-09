@@ -1,6 +1,6 @@
 // 1. Import the initial variables
-@import "../node_modules/bulma/sass/utilities/initial-variables";
-@import "../node_modules/bulma/sass/utilities/functions";
+@import "../../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../../node_modules/bulma/sass/utilities/functions";
 
 /* Coolors Exported Palette - coolors.co/52489c-4062bb-59c3c3-ebebeb-f45b69 */
 
@@ -40,7 +40,7 @@ $github: #333;
 $github-invert: findColorInvert($github);
 
 // 5. Add new color variables to the color map.
-@import "../node_modules/bulma/sass/utilities/derived-variables";
+@import "../../../node_modules/bulma/sass/utilities/derived-variables";
 $addColors: (
   "twitter":($twitter, $twitter-invert),
   "linkedin": ($linkedin, $linkedin-invert),
@@ -49,4 +49,4 @@ $addColors: (
 $colors: map-merge($colors, $addColors);
 
 // 6. Import the rest of Bulma
-@import "../node_modules/bulma/bulma.sass";
+@import "../../../node_modules/bulma/bulma.sass";

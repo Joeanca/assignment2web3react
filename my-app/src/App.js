@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Switch  } from 'react-router-dom';
-<<<<<<< HEAD
-import './styles/base/app.scss';
 
-=======
+
 import './App.css';
 import socketClient from './chatserver/SocketClient.js'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
->>>>>>> brandon_dev
 import HeaderBar from './components/HeaderBar.js';
 import Home from './containers/Home.js';
 import BrowseCompanies from './containers/BrowseCompanies.js';

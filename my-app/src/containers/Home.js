@@ -14,7 +14,6 @@ class Home extends Component {
      
     render(){
         return(
-<<<<<<< HEAD
             <div>
                 <div className = "columns">
                     <div className = "column is-4">
