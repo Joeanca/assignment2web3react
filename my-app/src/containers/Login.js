@@ -36,7 +36,7 @@ class Login extends Component {
     }
     componentWillMount=()=>{
       if(this.props.startNoLogin){
-        //this.bypasslogin()
+        this.bypasslogin()
       }
       this.props.loginHandler(this.onLogin);
     }

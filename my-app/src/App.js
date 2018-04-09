@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch  } from 'react-router-dom';
+import './styles/base/app.scss';
 
 
-import './App.css';
+
 import socketClient from './chatserver/SocketClient.js'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import HeaderBar from './components/HeaderBar.js';
@@ -112,7 +113,7 @@ class App extends Component {
     //-----------------------------------------------------
     // CALLED BY CHECKAUTH IF ISAUTHENTICATED IS FALSE. REDIRECTS TO THE LOGIN SCREEN 
     //-----------------------------------------------------
-    redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} startNoLogin={this.state.startNoLogin}loginHandler={this.state.client.loginHandler}
+    redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} startNoLogin={this.state.startNoLogin} loginHandler={this.state.client.loginHandler}
     unregisterHandler={this.state.client.unregisterHandler}
     client={this.state.client}
     notification={this.createNotification}

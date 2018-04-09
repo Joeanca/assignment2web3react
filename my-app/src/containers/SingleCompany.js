@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import CompanySummarySub from './CompanySummarySub.js';
 import CompanyListSub from './CompanyListSub.js';
-//import styles from '../styles/home/home.scss';
+import  '../styles/home/home.scss';
 
 
 //----------------------------------
@@ -81,21 +81,15 @@ class SingleCompany extends Component {
                       </ul>
                     </nav>
                     <div className = "card">
-                        <div className = "box">
-                            <div className = "media">
-                                <div className = "media-left">
-                                    <figure className = "image is-128x128">
+                        <div classAName = "card-content">
+                        <figure className = "image is-128x128">
                                         {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
                                         <img src={process.env.PUBLIC_URL + '/logos/'+ this.state.symbol+ '.svg'} alt={this.state.symbol} />
                                     </figure>
-                                </div>
-                                <div className = "media-content">
                                     <p className = "title is-1">
                                         {this.state.company.name}
                                     </p>
-                                </div>
-                            </div>
-                            <div className = "content">
+ 
                                 {/* RENDER TABS AND PASS IN PROPS TO THE COMPONENTS WITHIN THE TABS */}
                                 <div className="tabs is-boxed is-fullwidth is-marginless">
                                     <ul>
@@ -111,7 +105,7 @@ class SingleCompany extends Component {
                                         // IF FALSE
                                         :<CompanyListSub symbol={this.state.symbol} />
                                     }
-                                </div>
+
                             </div>
                         </div>
                     </div>

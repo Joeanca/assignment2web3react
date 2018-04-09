@@ -1,9 +1,15 @@
 @import './basicstyle.scss';
-@import '../home/home.scss';
-@import '../table/tables.scss';
+//@import '../chat/chat.scss';
+
 
 
 //DONT TOUCH
+html, 
+body {
+    height: 100%;
+}
+
+
 body {
     background-color: $color3;
 }
