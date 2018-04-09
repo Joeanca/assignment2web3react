@@ -22,9 +22,9 @@ class PortfolioInfoSub extends Component {
     // Once the component mounts it calls the api as described below
     //----------------------------------
     componentDidMount(){
+        if (this.state.userPortfolio){
             let userPortfolio= this.state.userPortfolio;
             let portfolioWithName = [];
-            let porfolioComplete = [];
 
             // GETS THE SUMMARY OF STOCKS OWNED AND DISPLAYS AS A PERCENTAGE
             axios.get("https://obscure-temple-42697.herokuapp.com/api/companies/list").then(response => {
@@ -34,15 +34,19 @@ class PortfolioInfoSub extends Component {
                       portfolioWithName.push(toReturn);
                       }}return null;
                 });
-               this.setState({completePortfolio: portfolioWithName}, getPrices());
-
+               this.setState({completePortfolio: portfolioWithName}, ()=>this.getPrices());
             })
             .catch(function (error){
                 alert('Error with api call ... error=' + error);
             });
             // eslint-disable-next-line
-            let getPrices =()=>{
-            portfolioWithName.map(el=>{
+        }
+    }
+    
+     getPrices =()=>{
+            let porfolioComplete = [];
+            // eslint-disable-next-line
+            this.state.completePortfolio.map(el=>{
                     axios("https://obscure-temple-42697.herokuapp.com/api/prices/latest/"+ el.symbol).then(response => {
                         let newEl = el;
                         newEl.close = response.data.close;
@@ -52,10 +56,7 @@ class PortfolioInfoSub extends Component {
                     alert('Error with api call ... error=' + error);
                 })});
             console.log(porfolioComplete);
-            this.setState({porComplete:porfolioComplete},this.render());
-            }
-            
-        
+            this.setState({porComplete:porfolioComplete},()=>console.log(this.state.porComplete));
     }
 
     sort=(id)=>{
@@ -75,25 +76,27 @@ class PortfolioInfoSub extends Component {
     render(){
         // Checks if the the information for the database api call has been successfully retrieved and displays result 
         if (!this.state.porComplete) {return null;}
-            else return (
+            else{
+             let porComplete = this.state.porComplete;   
+             return (
                 <table className = "table is-striped">
                     <thead>
                         <tr>
-                            <th id="symbol" onClick={()=>this.sort("symbol")}>Symbol</th>
-                            <th id="name" onClick={()=>this.sort("name")}>Name</th>
-                            <th id="owned" onClick={()=>this.sort("owned")}>Owned</th>
-                            <th id="close" onClick={()=>this.sort("close")}>Current price</th>
+                            <th onClick={()=>this.sort("symbol")} id="symbol" ><span>Symbol</span></th>
+                            <th onClick={()=>this.sort("name")} id="name" >Name</th>
+                            <th onClick={()=>this.sort("owned")} id="owned" >Owned</th>
+                            <th  onClick={()=>this.sort("close")} id="close" >Current price</th>
                         </tr>
                     </thead>
                     <tbody>
                     {/* maps the user portfolio data to display the information for each of the stocks retrieved */}
-                    {this.state.porComplete.map((stock, ind) => {
+                    {porComplete.map((stock, ind) => {
                         return(
                             <tr key={ind}>
                                 <td>{stock.symbol}</td>
                                 <td >{stock.name}</td>
                                 <td>{stock.owned}</td>
-                                <td>${stock.close}</td>
+                                <td>{stock.close}</td>
 
                             </tr>
                             );
@@ -102,6 +105,11 @@ class PortfolioInfoSub extends Component {
                     </tbody>
                 </table>
             );
+            }
     }
 }
 export default PortfolioInfoSub;
+
+
+
+
