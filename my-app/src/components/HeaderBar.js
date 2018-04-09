@@ -48,7 +48,7 @@ class HeaderBar extends React.Component {
             <div className="navbar-brand">
               
                 <NavLink className="navbar-item" to={ {pathname: "/home" }}>                   
-                        <h1 className="title is-5">{this.state.user.first_name} {this.state.user.last_name}</h1>
+                        <h1 className="title is-5">Welcome {this.state.user.first_name} {this.state.user.last_name}</h1>
                 </NavLink>                      
                 {/* empty container found to be needed as a place holder for the burger meny contracted*/}
                 <a className=" navbar-burger" id="navBurger" onClick={this.toggleMenu}>

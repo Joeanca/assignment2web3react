@@ -23,6 +23,7 @@ class BrowsePortfolio extends Component {
             userid: this.props.userid,
             pieData:'',
             portfolio:'',
+            portfolioWithClose:[]
         };
     }
     
@@ -30,10 +31,11 @@ class BrowsePortfolio extends Component {
     // Once the component mounts it calls the api as described below
     //----------------------------------
     componentDidMount(){
+        let portfolioInfo = [];
+
         // GETS THE SUMMARY OF STOCKS OWNED AND DISPLAYS AS A PERCENTAGE
         axios.get("https://obscure-temple-42697.herokuapp.com/api/portfolio/summary/"+ this.state.userid).then(response => {
             let pieData =[["symbol","owned"]];
-            let portfolioInfo = [];
             for (let stock of response.data){
                 portfolioInfo.push({symbol: stock.symbol, owned: stock.owned});
                 pieData.push([stock.symbol, stock.owned]);
@@ -41,10 +43,24 @@ class BrowsePortfolio extends Component {
             this.setState({pieData: pieData});
             this.setState({portfolio: portfolioInfo});// GETS THE SUMMARY OF STOCKS OWNED AND DISPLAYS AS A PERCENTAGE
             // console.log(portfolioInfo);
+            let portfolioWithClose = [];
+            // eslint-disable-next-line
+           portfolioInfo.map(el=>{
+                    axios("https://obscure-temple-42697.herokuapp.com/api/prices/latest/"+ el.symbol).then(response => {
+                        let newEl = el;
+                        newEl.close = response.data.close;
+                        portfolioWithClose.push(newEl);
+                })
+                .catch(function (error){
+                    alert('Error with api call ... error=' + error);
+                })});
+            this.setState({portfolioWithClose:portfolioWithClose});
         })
         .catch(function (error){
             alert('Error with api call ... error=' + error);
         });
+        
+        
     }
     
     //----------------------------------
@@ -87,7 +103,7 @@ class BrowsePortfolio extends Component {
                         <PortfolioSummarySub userid={this.state.userid} pieData={this.state.pieData} portfolio={this.state.portfolio} />:null
                         // IF DEFAULT TAB FALSE RENDER PORTFOLIOINFOSUB THEN CHECKS THAT PORTFOLIO IS SET
                         :this.state.portfolio?
-                        <PortfolioInfoSub userid={this.state.userid} portfolio={this.state.portfolio}/>:null
+                        <PortfolioInfoSub userid={this.state.userid} portfolio={this.state.portfolio} portfolioWithClose={this.state.portfolioWithClose}/>:null
                     }
                 </div>
             </article>
