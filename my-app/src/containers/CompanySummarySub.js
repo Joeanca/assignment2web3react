@@ -83,16 +83,23 @@ class CompanySummarySub extends Component {
     render(){
         if (!this.state.company) {return null;}
             else return (
-                <div>
-                    <div>{this.state.company.symbol}</div>
-                    <div>{this.state.company.name}</div>
-                    <div>{this.state.company.sector}</div>
-                    <div>{this.state.company.subindustry}</div>
-                    <div>{this.state.company.address}</div>
-                    <div>{this.state.company.date_added}</div>
-                    <div>{this.state.company.CIK}</div>
-                    <div>{this.state.company.frequency}</div>
-                    <div>
+                <div className = "columns">
+                    <div className = "column">
+                        <div className = "message is-success">
+                            <div className = "message-header">
+                                {this.state.company.name}
+                            </div>
+                            <div className = "message-body">
+                                <p>{this.state.company.symbol}</p>
+                                <p>{this.state.company.sector}</p>
+                                <p>{this.state.company.subindustry}</p>   
+                                <p>{this.state.company.address}</p>
+                                <p>{this.state.company.date_added}</p>           
+                                <p>{this.state.company.CIK}</p>
+                                <p>{this.state.company.frequency}</p>
+                            </div>
+                        </div>
+                        <div>
                         {/* Check to make sure the stock closing historical data is loaded and displays upon data load */}
                         {this.state.data?
                         <Chart
@@ -107,7 +114,7 @@ class CompanySummarySub extends Component {
                         :null}
                         
                     </div>
-                    
+                    </div>
                 </div>
             );
            

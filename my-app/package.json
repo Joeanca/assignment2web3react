@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "main": "my-app/src/index.js",  
+  "main": "my-app/src/index.js",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
@@ -42,11 +42,14 @@
     "promise": "8.0.1",
     "raf": "3.4.0",
     "react": "^16.2.0",
+    "react-chat-window": "^1.0.8",
     "react-dev-utils": "^5.0.0",
     "react-dom": "^16.2.0",
     "react-easy-chart": "^1.0.0",
     "react-fusioncharts": "^1.0.4",
+    "react-google-charts": "^1.5.7",
     "react-helmet": "^5.2.0",
+    "react-notifications": "^1.4.3",
     "react-router-dom": "^4.2.2",
     "sass-loader": "^6.0.7",
     "style-loader": "0.19.0",
@@ -109,6 +112,5 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-
   }
 }

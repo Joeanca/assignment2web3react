@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
+import '../styles/visualComponents/analytics.scss';
 
 //----------------------------------
 //  display the following information: total number of companies in portfolio, the total number of stocks in portfolio, and the current $ worth of the portfolio. Also display a pie chart displaying a percentage summary of the portfolio information for that user (see 2a in Back-End Requirements). 
@@ -20,7 +21,7 @@ class PortfolioSummarySub extends Component {
             portfolio: this.props.portfolio,
             total: this.props.total,
             options: {
-                title: 'Portfolio distribution',
+                //title: 'Portfolio distribution',
                 animation:{
                     duration: 1000,
                     easing: 'inAndOut',
@@ -86,28 +87,44 @@ class PortfolioSummarySub extends Component {
         // CHECK IF THE PIEDATA HAS BEEN POPULATED BEFORE RENDERING
         if (!this.state.pieData) {return null;}
             else return (
-                <div className="section">
-                    {/* Check if the total has been set yet and render when it does */}
-                    {this.state.total?
-                    <div>Total amount invested: {this.formatToDollars(this.state.total)}</div>:null}
-                    <div>Total number of companies owned: {this.state.owned}</div>
-                    <br/>
-                    <div>
-                        {/* Piechart */}
-                        <Chart
-                          chartType="PieChart"
-                          data={this.state.pieData}
-                          options={this.state.options}
-                          graph_id="PieChart"
-                          width="100%"
-                          height="400px"
-                          legend_toggle
-                        />
+                <div className = "columns">
+                    <div className = "column is-half">
+                        <div className = "box">
+                            <div class = "card">
+                                <header className = "card-header">
+                                    <p className = "card-header-title">
+                                        Investment Summary
+                                    </p>
+                                </header>
+                                <div className = "card-content">
+                                    <div className = "content">
+                                    {this.state.total?
+                                        <p>Total amount invested: {this.formatToDollars(this.state.total)}
+                                        </p>:null}
+                                        <p>Total number of companies owned: {this.state.owned}
+                                        </p>
+                                        <br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    {/*<div>{this.props.params}</div>*/}
+                    <div className = "column is-half">
+                        <div className = "box">
+                        {/* Piechart */}
+                            <Chart
+                                chartType="PieChart"
+                                data={this.state.pieData}
+                                options={this.state.options}
+                                graph_id="PieChart"
+                                width="100%"
+                                height="400px"
+                                legend_toggle
+                            />
+                        </div>
+                    </div>
                 </div>
             );
-           
+        }
     }
-}
 export default PortfolioSummarySub;
