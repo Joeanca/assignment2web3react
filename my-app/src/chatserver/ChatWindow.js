@@ -8,7 +8,8 @@ class Chat extends Component {
 
         this.state = {
           chatHistory: this.props.chatHistory,
-          input: ''
+          input: '', 
+          isOpen: true
         }
     
         this.onInput = this.onInput.bind(this)
@@ -17,6 +18,7 @@ class Chat extends Component {
         this.updateChatHistory = this.updateChatHistory.bind(this)
         this.scrollChatToBottom = this.scrollChatToBottom.bind(this)
         this.onUserJoin = this.onUserJoin.bind(this)
+        this.checkwindowopen = this.checkwindowopen.bind(this)
         
     }
     
@@ -78,6 +80,11 @@ class Chat extends Component {
               }]
             })
           }
+          console.log("is chat open: " + this.state.isOpen);
+          if(this.state.isOpen){
+            this.props.notification('message', parsedIn.author, parsedMessage.data.text); 
+            
+          }
     }
     
     updateChatHistory(message) {
@@ -88,6 +95,13 @@ class Chat extends Component {
              
     }
     
+    checkwindowopen(status){
+      console.log("updated status: " + status);
+      this.setState({
+        isOpen: status 
+      })      
+      
+    }
 
   render() {
     return (<div>
@@ -100,6 +114,7 @@ class Chat extends Component {
         messageList={this.state.chatHistory}
         activeUser={this.props.user}
         showEmoji
+        checkwindow={this.checkwindowopen}
       />
     </div>)
   }

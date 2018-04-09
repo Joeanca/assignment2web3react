@@ -85,6 +85,9 @@
 .notification-info {
   background-color: #2f96b4;
 }
+.notification-message > .message {
+  color: black;
+}
 
 .notification-info:before {
   content: "";

@@ -73,7 +73,7 @@ class App extends Component {
             break;
           case 'message':
             console.log("creating message notification");
-            NotificationManager.info(message + "test content", username , 2000);
+            NotificationManager.info(message, username , 3000);
             break;  
           case 'success': 
             NotificationManager.success('Success message', 'Title here');
