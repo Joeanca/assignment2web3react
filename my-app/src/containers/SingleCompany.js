@@ -81,7 +81,7 @@ class SingleCompany extends Component {
                       </ul>
                     </nav>
                     <div className = "card">
-                        <div className = "card-content">
+                        <div className = "box">
                             <div className = "media">
                                 <div className = "media-left">
                                     <figure className = "image is-128x128">
