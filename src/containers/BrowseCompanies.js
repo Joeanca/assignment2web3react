@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/base/app.scss';
+import '../../../styles/base/app.scss';
 
 
 class BrowseCompanies extends Component {
