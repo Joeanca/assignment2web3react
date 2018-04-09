@@ -26,7 +26,13 @@
     max-height: 300px;
     overflow-x: hidden;
 }
+
+.sc-launcher{
+  z-index:5;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+

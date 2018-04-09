@@ -8,6 +8,7 @@ import axios from 'axios';
 import CompanySummarySub from './CompanySummarySub.js';
 import CompanyListSub from './CompanyListSub.js';
 
+
 //----------------------------------
 // For this view, display the logo and the company name. As well, display two tabs that allow the user to view either the Summary sub-view or the List sub-view:
 //     a.For the Summary sub-view, the other information for the company. Also display a bar chart of the average close price for each month. You are free to use any react-friendly JS charting library.
@@ -77,9 +78,9 @@ class SingleCompany extends Component {
                     <li className="is-active"><span >&nbsp;&nbsp;</span>{this.state.company?this.state.company.name:"loading..."}</li>
                   </ul>
                 </nav>
-                <div className="card-image box is-marginless column">
+                <div className="card-image">
                     <div className="container logo">
-                        <figure className="image image is-3by2">
+                        <figure className="image is-1by1">
                             {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
                           <img src={process.env.PUBLIC_URL + '/logos/'+ this.state.symbol+ '.svg'} alt={this.state.symbol} />
                         </figure>

@@ -56,7 +56,7 @@ class PortfolioInfoSub extends Component {
                         return(
                             <tr key={ind}>
                                 <td>{stock.symbol}</td>
-                                <td>{stock.name}</td>
+                                <td >{stock.name}</td>
                                 <td>{stock.owned}</td>
                             </tr>
                             );

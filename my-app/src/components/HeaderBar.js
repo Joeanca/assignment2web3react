@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+
 class HeaderBar extends React.Component {
     constructor(props){
         super(props);
@@ -45,14 +46,10 @@ class HeaderBar extends React.Component {
         return(
         <nav className="navbar is-primary"> 
             <div className="navbar-brand">
-                <a className="navbar-item">
-                    <span className="icon">      
-                        <i className="fab fa-lg fa-react"></i>       
-                    </span>                 
-                </a>                
+              
                 <NavLink className="navbar-item" to={ {pathname: "/home" }}>                   
-                        <h1 className="title is-3">Welcome: {this.state.user.first_name} {this.state.user.last_name}</h1>
-                </NavLink>
+                        <h1 className="title is-5">{this.state.user.first_name} {this.state.user.last_name}</h1>
+                </NavLink>                      
                 {/* empty container found to be needed as a place holder for the burger meny contracted*/}
                 <a className=" navbar-burger" id="navBurger" onClick={this.toggleMenu}>
                      <span></span>
