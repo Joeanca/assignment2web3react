@@ -1,23 +1,4 @@
 {
-<<<<<<< HEAD
-  "name": "chat-example",
-  "version": "0.0.0",
-  "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
-  "main": "my-app/src/index.js",
-  "repository": "",
-  "author": "Mostafa Eweda <mo.eweda@gmail.com>",
-  "dependencies": {
-<<<<<<< HEAD
-    "async": "~0.2.8",
-    "express": "~3.2.4",
-    "react-google-charts": "^1.5.7",
-    "socket.io": "~0.9.14"
-=======
-    "async": "^0.2.10",
-    "express": "^3.2.6",
-    "socket.io": "^0.9.19"
->>>>>>> 8c4f9ba7d64a3b467b70bac6bc6538acbe1d72be
-=======
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
@@ -31,13 +12,15 @@
     "react-fusioncharts": "^1.0.4",
     "react-google-charts": "^1.5.7",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
-  },
+    "react-scripts": "1.1.1", 
+    "async": "~0.2.8",
+    "express": "~3.2.4",
+    "socket.io": "~0.9.14"
+  }, 
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
->>>>>>> 2c8528612093106dc207318a6e7a6ee51c124fd5
   }
 }
