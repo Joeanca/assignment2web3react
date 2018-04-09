@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import '../styles/home/home.scss';
 
 
+
 class Home extends Component {
    constructor(props){
         super(props);

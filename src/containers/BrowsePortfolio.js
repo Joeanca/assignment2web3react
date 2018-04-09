@@ -2,7 +2,6 @@
 // TODO: CHANGE USER ID ONCE LOGIN IS IMPLEMENTED
 // TODO: SORTING OF B. 
 
-
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import PortfolioSummarySub from './PortfolioSummarySub.js';

@@ -1,8 +1,6 @@
 /*Browse Companies. For this view, display a list of companies (and their logos) sorted by name. Each company name will be a link/route to a Single Company view. */
 // TODO: CSS (remove table and implement another type of layout, looks like crap on iPad viewport) and comments
 
-
-
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';

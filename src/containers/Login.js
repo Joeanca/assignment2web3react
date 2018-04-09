@@ -6,8 +6,19 @@ I will provide you with more guidance on how best to implement this in Node and 
 */
 
 import React, { Component } from 'react';
+<<<<<<< HEAD:my-app/src/containers/Login.js
 import { Redirect  } from 'react-router-dom';
 import axios from 'axios';
+=======
+// import axios from 'axios';
+// import { NavLink } from 'react-router-dom';
+
+//TODO : email format validation
+//TODO : password hashing and communication
+
+// EXAMPLE OF LOGIN
+// https://reacttraining.com/react-router/web/example/auth-workflow
+>>>>>>> 2c8528612093106dc207318a6e7a6ee51c124fd5:src/containers/Login.js
 
 
 //-----------------------------------------------------

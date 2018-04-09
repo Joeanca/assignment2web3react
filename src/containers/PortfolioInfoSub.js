@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
 //----------------------------------
 //  This class displays the info tab which is rendered on the browse portfolio page 
 //  displays the stock owned by the client and the average close price for each month
