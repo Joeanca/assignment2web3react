@@ -8,6 +8,8 @@ I will provide you with more guidance on how best to implement this in Node and 
 import React, { Component } from 'react';
 import { Redirect  } from 'react-router-dom';
 import axios from 'axios';
+import notification from './notification.js';
+
 
 //-----------------------------------------------------
 //  USER IS REDIRECTED TO THIS SCREEN IF THE FLAG ISAUTHENTICATED IS NOT SET TO TRUE. THE CHANGEAUTH FUNCTION IS PASSED IN AS PROPS WHICH CONTROLS THE ISAUTHENTICATED FLAG IN APP.JS
@@ -21,11 +23,47 @@ class Login extends Component {
             isAuthenticated: this.props.isAuthenticated,
             redirectToReferrer: '',
             smtgWrong: false,
-            startNoLogin: this.props.startNoLogin
+            startNoLogin: this.props.startNoLogin, 
+            notify:false         
         };
+        this.successfullLogin = this.successfullLogin.bind(this)
+        this.onLogout = this.onLogout.bind(this)
+        this.onLogin = this.onLogin.bind(this)
+        
     }
-  componentWillMount=()=>{if(this.props.startNoLogin){this.bypasslogin()}}
+    componentDidMount() {
+      console.log("mounted: " + this.props.client);
+      
+      //this.props.loginHandler(successfullLogin, onLogout);
+    }
+    componentWillMount=()=>{
+      if(this.props.startNoLogin){
+        //this.bypasslogin()
+      }
+      this.props.loginHandler(this.onLogin, this.onLogout);
+    }
   
+    successfullLogin = (user)=> {        //sends successful login to chatserver to generate notification
+      var username = user.first_name + " " + user.last_name;
+      console.log("login message was sent: " + JSON.stringify(username));
+      //message.author = this.props.user;
+      if(this.props.client){
+
+        console.log(this.props.client);
+        this.props.client.login(JSON.stringify(username));    
+      }
+   };
+
+    
+  
+  onLogout (message) {
+    console.log("user logged out");
+  };
+  onLogin (message){
+    console.log("user logged in: " + JSON.stringify(message));
+    this.props.notification('login', message.username);
+
+  };
   //-----------------------------------------------------
   // SETS THE EMAIL AND PASSWORD STATE TO FAKE A LOGIN FOR DEBUGGIN PURPOSSES
   //-----------------------------------------------------
@@ -51,10 +89,12 @@ class Login extends Component {
                   let user = response.data[0];
                   // SETS THE LOGIN TO TRUE ON SUCCESSFUL IDENTIFICATION OF THE CLIENT AND SENDS THE USER ELEMENT RETURNED
                   this.props.auth(true, user);
-            }else this.displayDivError("Please check your credentials and try again");
+                  this.successfullLogin(user);
+
+                }else this.displayDivError("Please check your credentials and try again");
         })
         .catch(function (error){
-            alert('Error with api call ... error=' + error);
+            alert('Error with api call login... error=' + error);
         });   
       }else{
           // DISPLAYS A GENERIC MESSAGE TELLING THE CLIENT TO USE THE RIGHT CREDENTIALS 

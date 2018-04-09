@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Chat from '../chatserver/ChatWindow.js';
 
 
 class HeaderBar extends React.Component {
@@ -50,15 +49,7 @@ class HeaderBar extends React.Component {
               
                 <NavLink className="navbar-item" to={ {pathname: "/home" }}>                   
                         <h1 className="title is-5">{this.state.user.first_name} {this.state.user.last_name}</h1>
-                </NavLink> 
-                <Chat userid={this.props.userid} 
-                  user={this.props.wholeUser} 
-                  chatHistory={[]} 
-                  onSendMessage={(message) => this.props.client.message(message)}
-                  registerHandler={this.props.client.registerHandler}
-                  unregisterHandler={this.props.client.unregisterHandler}
-                  client={this.props.client}
-                />                          
+                </NavLink>                      
                 {/* empty container found to be needed as a place holder for the burger meny contracted*/}
                 <a className=" navbar-burger" id="navBurger" onClick={this.toggleMenu}>
                      <span></span>

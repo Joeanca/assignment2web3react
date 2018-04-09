@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch  } from 'react-router-dom';
 import './App.css';
 import socketClient from './chatserver/SocketClient.js'
-
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import HeaderBar from './components/HeaderBar.js';
 import Home from './containers/Home.js';
 import BrowseCompanies from './containers/BrowseCompanies.js';
@@ -60,10 +60,44 @@ class App extends Component {
       }
     }
    
+    //------------------------------------------------------------
+    //THIS IS USED TO BUILD NOTIFICATIONS
+    //-----------------------------------------------------------
+    createNotification = (type, username, message = "") => {
+      console.log("creating notification");
+      console.log(type);
+        switch (type) {         
+          case 'login':
+            console.log("creating info notification");
+            NotificationManager.info(message, username + " Logged in", 2000);
+            break;
+          case 'message':
+            console.log("creating message notification");
+            NotificationManager.info(message + "test content", username , 2000);
+            break;  
+          case 'success': 
+            NotificationManager.success('Success message', 'Title here');
+            break;
+          case 'warning':
+            NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
+            break;
+          default:
+          console.log("in switch")
+            NotificationManager.error('Error message', 'Click me!', 5000, () => {
+              alert('callback');
+            });
+            break;
+        };
+    };
+
     //-----------------------------------------------------
     // CALLED BY CHECKAUTH IF ISAUTHENTICATED IS FALSE. REDIRECTS TO THE LOGIN SCREEN 
     //-----------------------------------------------------
-    redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} startNoLogin={this.state.startNoLogin}{...props} />) } />)
+    redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} startNoLogin={this.state.startNoLogin}loginHandler={this.state.client.loginHandler}
+    unregisterHandler={this.state.client.unregisterHandler}
+    client={this.state.client}
+    notification={this.createNotification}
+    {...props} />) } />)
    
    
    render() {
@@ -73,11 +107,6 @@ class App extends Component {
         {this.state.isAuthenticated?<HeaderBar
          logoutfn={this.logout} 
          user={this.state.wholeUser}
-         chatHistory={[]} 
-          onSendMessage={(message) => this.state.client.message(message)}
-          registerHandler={this.state.client.registerHandler}
-          unregisterHandler={this.state.client.unregisterHandler}
-          client={this.state.client}
          />:
            null
         }
@@ -88,20 +117,34 @@ class App extends Component {
                   registerHandler={this.state.client.registerHandler}
                   unregisterHandler={this.state.client.unregisterHandler}
                   client={this.state.client}
+                  notification={this.createNotification}
+
                 />
                 : null
         }
+        {this.state.isAuthenticated ? <NotificationContainer /> : null
+}
+
+
         <main >
           <Switch >
             <Route path="/" exact render={(props) => (this.checkAuth(<Home userid={this.state.userid} />))} />
             <Route path="/home" exact render={(props) => this.checkAuth(<Home userid={this.state.userid} />) }/>
             <Route path="/companies" exact render={(props) => this.checkAuth(<BrowseCompanies userid={this.state.userid}  />)}/>
             <Route path="/portfolio" exact render={(props) => this.checkAuth(<BrowsePortfolio userid={this.state.userid}  />) }/>
-            <Route path="/login" exact render={(props) => (<Login auth={this.changeAuth} history={this.history} from={props.location} />) }/>
             <Route path="/company/:id" exact render={(props) => this.checkAuth(<SingleCompany {...props} userid={this.state.userid} />) }/>
             <Route path="/visualizer" exact render={(props) => this.checkAuth(<StockVisualizer  userid={this.state.userid} />) }/>
             <Route path="/aboutus" exact render={(props) => this.checkAuth(<AboutUs userid={this.state.userid} />) }/>
             <Route path="/notification" exact render={(props) => this.checkAuth(<Notification userid={this.state.userid} user={this.state.wholeUser}/>) }/>
+            <Route path="/login" exact render={(props) => (<Login auth={this.changeAuth} 
+                history={this.history} 
+                from={props.location} 
+                loginHandler={this.state.client.loginHandler}
+                unregisterHandler={this.state.client.unregisterHandler}
+                client={this.state.client}
+                notification={this.createNotification}
+              />)}
+            />
 
             <Route render={(props) => this.checkAuth(<NotFound userid={this.state.userid} />) }/>
           </Switch>

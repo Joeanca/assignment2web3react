@@ -5,8 +5,7 @@ class Chat extends Component {
 
     constructor(props, context) {
         super(props, context)
-    
-    
+
         this.state = {
           chatHistory: this.props.chatHistory,
           input: ''
@@ -19,7 +18,7 @@ class Chat extends Component {
         this.scrollChatToBottom = this.scrollChatToBottom.bind(this)
         this.onUserJoin = this.onUserJoin.bind(this)
         
-      }
+    }
     
       componentDidMount() {
         this.props.registerHandler(this._sendMessage, this.onUserJoin, this.updateChatHistory)

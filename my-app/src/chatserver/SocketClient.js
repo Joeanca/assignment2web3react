@@ -6,8 +6,13 @@ export default function () {
   function registerHandler(onMessageReceived, onUserJoin, updateChat) {
     socket.on('server message', onMessageReceived)
     socket.on('joined', onUserJoin)
-    socket.on('', updateChat)
+    socket.on('updatechat', updateChat)
+
     
+  }
+  function loginHandler(onLogin, onLogout){
+    socket.on('login', onLogin);
+    socket.on('logout', onLogout);
   }
 
   function unregisterHandler() {
@@ -29,12 +34,12 @@ export default function () {
     socket.emit('register', name, cb)
   }
 
-  function join(cb) {
-    socket.emit('join', cb)
+  function login(cb) {
+    socket.emit('login', cb)
   }
 
-  function leave(cb) {
-    socket.emit('leave', cb)
+  function logout(cb) {
+    socket.emit('logout', cb)
   }
 
   function message(msg, cb) {
@@ -51,12 +56,13 @@ export default function () {
 
   return {
     register,
-    join,
-    leave,
+    login,
+    logout,
     message,
     getChatrooms,
     getAvailableUsers,
     registerHandler,
-    unregisterHandler
+    unregisterHandler, 
+    loginHandler
   }
 }

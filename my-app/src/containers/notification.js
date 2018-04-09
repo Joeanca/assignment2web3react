@@ -6,7 +6,8 @@ class Notification extends Component {
          super(props);
          this.state={
           user: this.props.user,
-          username: this.props.user.first_name + " " + this.props.user.last_name
+          username: this.props.user.first_name + " " + this.props.user.last_name,
+          type: this.props.type
          };
      }
       
@@ -34,6 +35,7 @@ class Notification extends Component {
       render() {
         return (
           <div>
+            
             <button className='btn btn-info'
               onClick={this.createNotification('info')}>Info
             </button>
