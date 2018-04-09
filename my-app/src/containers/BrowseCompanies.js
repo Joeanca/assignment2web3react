@@ -31,43 +31,42 @@ class BrowseCompanies extends Component {
         if (! this.state.companies || this.state.companies.length === 0){
             return null;
         }else{
-        return(
-            <div>
-                {/*Breadcrumb*/}
-                <nav className="breadcrumb" aria-label="breadcrumbs">
-                  <ul>
-                    <li><NavLink to={"/" }>Home</NavLink></li>
-                    <li className="is-active"><span >&nbsp;&nbsp;</span>Companies</li>
-                  </ul>
-                </nav>
-                <div className = "columns is-multiline">
-                    {this.state.companies?
-                        this.state.companies.map((company, ind) => {
-                            return (
-                                <div className = "column is-4">
-                                    <div className = "card">
-                                        <figure className="image is-square">
-                                            {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
-                                            <img src={process.env.PUBLIC_URL + '/logos/'+ company.symbol+ '.svg'} alt={company.symbol} />
-                                        </figure>
-                                        <div className="card-content">
-                                            <div className = "media">
-                                                <div className = "media-content">
-                                                <br/>
-                                                    <NavLink to={"/company/" + company.symbol} className="button is-black is-fullwidth is-rounded is-inverted" symbol={company.symbol} key={ind}>{company.name}
-                                                    </NavLink>
+            return(
+                <div>
+                    {/*Breadcrumb*/}
+                    <nav className="breadcrumb" aria-label="breadcrumbs">
+                      <ul>
+                        <li><NavLink to={"/" }>Home</NavLink></li>
+                        <li className="is-active"><span >&nbsp;&nbsp;</span>Companies</li>
+                      </ul>
+                    </nav>
+                    <div className = "columns is-multiline">
+                        {this.state.companies?
+                            this.state.companies.map((company, ind) => {
+                                return (
+                                    <div className = "column is-4">
+                                        <div className = "card">
+                                            <figure className="image is-square">
+                                                {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
+                                                <img src={process.env.PUBLIC_URL + '/logos/'+ company.symbol+ '.svg'} alt={company.symbol} />
+                                            </figure>
+                                            <div className="card-content">
+                                                <div className = "media">
+                                                    <div className = "media-content">
+                                                    <br/>
+                                                        <NavLink to={"/company/" + company.symbol} className="button is-black is-fullwidth is-rounded is-inverted" symbol={company.symbol} key={ind}>{company.name}
+                                                        </NavLink>
+                                                    </div>
                                                 </div>
-                                                </div>
-                                                </div>
+                                            </div>
                                         </div>
-                                        </div>
-                                    );
-                                }):null
-                            }
-                        </div>
+                                    </div>
+                                );
+                            }):null
+                        }
                     </div>
-
-        );
+                </div>
+            );
         }
     }
 }

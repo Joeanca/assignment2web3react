@@ -67,22 +67,6 @@ class Home extends Component {
                 </div>
                 <div className = "columns is-multiline">
                     <div className = "column is-4">
-                        {/*Card for Company*/}
-                        <div className = "card">
-                            <figure className = "image is-3by3">
-                                <img src = "http://placeimg.com/640/480/tech" alt = "Company" />
-                            </figure>
-                            <div className = "card-content">
-                                <div className = "media">
-                                    <div className = "media-content">
-                                        <br/>
-                                        <NavLink to="/company" className="button is-black is-fullwidth is-rounded is-inverted" >Company</NavLink>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className = "column is-4">
                         {/*Card for Visualizer*/}
                         <div className = "card">
                             <figure className = "image is-3by3">
