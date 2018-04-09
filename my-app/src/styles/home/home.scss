@@ -10,15 +10,9 @@
 .column {
     margin: 1px 0px 1px 0px;
 }
-.img {
-    padding: 0rem;
-    box-shadow: 5px 5px 8px #888888;
-    max-width: 100%; 
-    max-height: 100%;
-    margin: auto;
-    display: block;
+.container {
+    max-height: auto;
 }
-
 .card {
     box-shadow: 5px 5px 8px #888888;
     background-color: $color2;

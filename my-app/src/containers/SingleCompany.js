@@ -81,31 +81,37 @@ class SingleCompany extends Component {
                       </ul>
                     </nav>
                     <div className = "card">
-                        <div classAName = "card-content">
-                        <figure className = "image is-128x128">
-                                        {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
-                                        <img src={process.env.PUBLIC_URL + '/logos/'+ this.state.symbol+ '.svg'} alt={this.state.symbol} />
-                                    </figure>
+                        <div className = "card-image">
+                            <div className = "section is-centered">
+                                <figure className = "image is-3by2">
+                                    {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
+                                    <img src={process.env.PUBLIC_URL + '/logos/'+ this.state.symbol+ '.svg'} alt={this.state.symbol} />
+                                </figure>
+                            </div>
+                        </div>
+                        <div className = "card-content">
+                            <div className = "media">
+                                <div className = "media-content">
                                     <p className = "title is-1">
                                         {this.state.company.name}
                                     </p>
- 
-                                {/* RENDER TABS AND PASS IN PROPS TO THE COMPONENTS WITHIN THE TABS */}
-                                <div className="tabs is-boxed is-fullwidth is-marginless">
-                                    <ul>
-                                        <li className="is-active" id="details"><a onClick={()=>this.changeTab("details")} >Summary</a></li>
-                                        <li id="portfolio"><a onClick={()=>this.changeTab("portfolio")}>List</a></li>
-                                    </ul>
                                 </div>
-                                <div className="box is-radiusless singleUserBox">
-                                    {this.state.defaultTab? 
-                                        // RENDER TAB ACCORDING TO THE STATUS OF THE THIS.STATE.DEFAULTAB
-                                        // IF TRUE
-                                        <CompanySummarySub symbol={this.state.symbol} company={this.state.company}/>
-                                        // IF FALSE
-                                        :<CompanyListSub symbol={this.state.symbol} />
-                                    }
-
+                            </div>
+                            {/* RENDER TABS AND PASS IN PROPS TO THE COMPONENTS WITHIN THE TABS */}
+                            <div className="tabs is-boxed is-fullwidth is-marginless">
+                                <ul>
+                                    <li className="is-active" id="details"><a onClick={()=>this.changeTab("details")} >Summary</a></li>
+                                    <li id="portfolio"><a onClick={()=>this.changeTab("portfolio")}>List</a></li>
+                                </ul>
+                            </div>
+                            <div className="box is-radiusless singleUserBox">
+                                {this.state.defaultTab? 
+                                    // RENDER TAB ACCORDING TO THE STATUS OF THE THIS.STATE.DEFAULTAB
+                                    // IF TRUE
+                                    <CompanySummarySub symbol={this.state.symbol} company={this.state.company}/>
+                                    // IF FALSE
+                                    :<CompanyListSub symbol={this.state.symbol} />
+                                }
                             </div>
                         </div>
                     </div>

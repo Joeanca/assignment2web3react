@@ -47,10 +47,12 @@ class BrowseCompanies extends Component {
                                     <div className = "column is-4">
                                         <div className = "card">
                                             <div className="card-image">
-                                                {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
-                                                <figure className="image is-4by3">
-                                                    <img src={process.env.PUBLIC_URL + '/logos/'+ company.symbol+ '.svg'} alt={company.symbol} />
-                                                </figure>
+                                                <div className="box is-centered">
+                                                    {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
+                                                    <figure className="image is-3by2">
+                                                        <img src={process.env.PUBLIC_URL + '/logos/'+ company.symbol+ '.svg'} alt={company.symbol} />
+                                                    </figure>
+                                                </div>
                                             </div>
                                             <div className="card-content">
                                                 <div className = "media">
