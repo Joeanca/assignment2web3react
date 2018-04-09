@@ -238,5 +238,5 @@ ul {
   border: 10px;
   border-radius: 10%; }
 
-.sc-message--content.sent > message--author {
+.sc-message + .message--author {
   display: none; }

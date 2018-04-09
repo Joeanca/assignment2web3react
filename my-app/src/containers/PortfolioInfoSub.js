@@ -15,6 +15,7 @@ class PortfolioInfoSub extends Component {
             userid: this.props.userid,
             userPortfolio: this.props.portfolio,
             completePortfolio:'',
+            portfolioWithClose: this.props.portfolioWithClose
         };
     }
     
@@ -22,72 +23,59 @@ class PortfolioInfoSub extends Component {
     // Once the component mounts it calls the api as described below
     //----------------------------------
     componentDidMount(){
-            let userPortfolio= this.state.userPortfolio;
+        if (this.state.portfolioWithClose){
+            let portfolioWithClose= this.state.portfolioWithClose;
             let portfolioWithName = [];
-            let porfolioComplete = [];
 
             // GETS THE SUMMARY OF STOCKS OWNED AND DISPLAYS AS A PERCENTAGE
             axios.get("https://obscure-temple-42697.herokuapp.com/api/companies/list").then(response => {
                 response.data.filter((element)=> {
-                  for(let el of userPortfolio){if (el.symbol === element.symbol){
-                      let toReturn ={owned:el.owned, symbol: element.symbol, name: element.name};
+                  for(let el of portfolioWithClose){if (el.symbol === element.symbol){
+                      let toReturn ={owned:el.owned, symbol: element.symbol, name: element.name, close: el.close};
                       portfolioWithName.push(toReturn);
                       }}return null;
                 });
-               this.setState({completePortfolio: portfolioWithName}, getPrices());
-
+               this.setState({completePortfolio: portfolioWithName});
             })
             .catch(function (error){
                 alert('Error with api call ... error=' + error);
             });
             // eslint-disable-next-line
-            let getPrices =()=>{
-            portfolioWithName.map(el=>{
-                    axios("https://obscure-temple-42697.herokuapp.com/api/prices/latest/"+ el.symbol).then(response => {
-                        let newEl = el;
-                        newEl.close = response.data.close;
-                        porfolioComplete.push(newEl);
-                })
-                .catch(function (error){
-                    alert('Error with api call ... error=' + error);
-                })});
-            console.log(porfolioComplete);
-            this.setState({porComplete:porfolioComplete},this.render());
-            }
-            
-        
+        }
     }
+    
 
     sort=(id)=>{
-        let porfolioComplete = this.state.porComplete;
+        let porfolioComplete = this.state.completePortfolio;
         if (document.querySelector("#"+ id).classList.contains(".desc")){
             porfolioComplete.sort((a, b)=>{let result =0;if (a[id] <b[id])result=1;else if(b[id]<a[id])result=-1;return result;});
-            this.setState({porfolioComplete:porfolioComplete});
+            this.setState({completePortfolio:porfolioComplete});
             document.querySelector("#"+ id).classList.remove(".desc");
             document.querySelector("#"+ id).classList.add(".asc");
         }else{
             porfolioComplete.sort((a, b)=>{let result =0;if (a[id] <b[id])result=-1;else if(b[id]<a[id])result=1;return result;});
-            this.setState({porfolioComplete:porfolioComplete});
+            this.setState({completePortfolio:porfolioComplete});
             document.querySelector("#"+ id).classList.add(".desc");
             document.querySelector("#"+ id).classList.remove(".asc");
         }
     }
     render(){
         // Checks if the the information for the database api call has been successfully retrieved and displays result 
-        if (!this.state.porComplete) {return null;}
-            else return (
+        if (!this.state.completePortfolio) {return null;}
+            else{
+             return (
                 <table className = "table is-striped">
                     <thead>
                         <tr>
-                            <th id="symbol" onClick={()=>this.sort("symbol")}>Symbol</th>
-                            <th id="name" onClick={()=>this.sort("name")}>Name</th>
-                            <th id="owned" onClick={()=>this.sort("owned")}>Owned</th>
-                            <th id="close" onClick={()=>this.sort("close")}>Current price</th>
+                            <th onClick={()=>this.sort("symbol")} id="symbol" ><span>Symbol</span></th>
+                            <th onClick={()=>this.sort("name")} id="name" >Name</th>
+                            <th onClick={()=>this.sort("owned")} id="owned" >Owned</th>
+                            <th  onClick={()=>this.sort("close")} id="close" >Current price</th>
                         </tr>
                     </thead>
                     <tbody>
                     {/* maps the user portfolio data to display the information for each of the stocks retrieved */}
-                    {this.state.porComplete.map((stock, ind) => {
+                    {this.state.completePortfolio.map((stock, ind) => {
                         return(
                             <tr key={ind}>
                                 <td>{stock.symbol}</td>
@@ -102,6 +90,11 @@ class PortfolioInfoSub extends Component {
                     </tbody>
                 </table>
             );
+            }
     }
 }
 export default PortfolioInfoSub;
+
+
+
+
