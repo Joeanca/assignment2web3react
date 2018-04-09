@@ -90,7 +90,7 @@ class CompanyListSub extends Component{
                     <table className = "table is-striped">
                         <thead>
                             <tr>
-                                <th onClick={()=>this.sort("date")} id="date">Date</th>
+                                <th onClick={()=>this.sort("date")} id="date">Date<span className="fas fa-arrows-alt-v level-right is-size-5 is-vertical-center is-marginless" /></th>
                                 <th onClick={()=>this.sort("open")} id="open">Open</th>
                                 <th onClick={()=>this.sort("high")} id="high">High</th>
                                 <th onClick={()=>this.sort("low")} id="low">Low</th>
