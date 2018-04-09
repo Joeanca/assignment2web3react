@@ -1,7 +1,7 @@
 const io = require('socket.io-client')
 
 export default function () {
-  const socket = io.connect('http://localhost:5000')
+  const socket = io.connect('https://warm-cliffs-39151.herokuapp.com/')
 
   function registerHandler(onMessageReceived, onUserJoin, updateChat) {
     socket.on('server message', onMessageReceived)
