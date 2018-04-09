@@ -6,9 +6,15 @@
   "repository": "",
   "author": "Mostafa Eweda <mo.eweda@gmail.com>",
   "dependencies": {
+<<<<<<< HEAD
     "async": "~0.2.8",
     "express": "~3.2.4",
     "react-google-charts": "^1.5.7",
     "socket.io": "~0.9.14"
+=======
+    "async": "^0.2.10",
+    "express": "^3.2.6",
+    "socket.io": "^0.9.19"
+>>>>>>> 8c4f9ba7d64a3b467b70bac6bc6538acbe1d72be
   }
 }

@@ -1,0 +1,52 @@
+// 1. Import the initial variables
+@import "../../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../../node_modules/bulma/sass/utilities/functions";
+
+/* Coolors Exported Palette - coolors.co/52489c-4062bb-59c3c3-ebebeb-f45b69 */
+
+/* HSL */
+$color1: hsla(247%, 37%, 45%, 1); //Purple
+$color2: hsla(223%, 49%, 49%, 1); //Blue
+$color3: hsla(180%, 47%, 56%, 1); //Light Blue
+$color4: hsla(0%, 0%, 92%, 1); // Grey
+$color5: hsla(355%, 87%, 66%, 1); //Pink
+
+/* RGB */
+$color1: rgba(82, 72, 156, 1); //Purple
+$color2: rgba(64, 98, 187, 1); //Blue
+$color3: rgba(89, 195, 195, 1); //Light Blue
+$color4: rgba(235, 235, 235, 1); //Grey
+$color5: rgba(244, 91, 105, 1); //Pink
+
+// 2. Set your own initial variables
+$blue: $color2;
+$pink: $color5;
+$pink-invert: #fff;
+$family-serif: "Merriweather", "Georgia", serif;
+
+// 3. Set the derived variables
+$link: $color3;
+$primary: lighten($color1, 20%);
+$primary-invert: $pink-invert;
+$danger: $orange;
+$family-primary: $family-serif;
+
+// 4. Setup your Custom Colors
+$linkedin: #0077b5;
+$linkedin-invert: findColorInvert($linkedin);
+$twitter: #55acee;
+$twitter-invert: findColorInvert($twitter);
+$github: #333;
+$github-invert: findColorInvert($github);
+
+// 5. Add new color variables to the color map.
+@import "../../../node_modules/bulma/sass/utilities/derived-variables";
+$addColors: (
+  "twitter":($twitter, $twitter-invert),
+  "linkedin": ($linkedin, $linkedin-invert),
+  "github": ($github, $github-invert)
+);
+$colors: map-merge($colors, $addColors);
+
+// 6. Import the rest of Bulma
+@import "../../../node_modules/bulma/bulma.sass";

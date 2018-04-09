@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/base/app.scss';
 
 
 class BrowseCompanies extends Component {
@@ -31,40 +32,43 @@ class BrowseCompanies extends Component {
             return null;
         }else{
         return(
-            <article className="section">
+            <div>
                 <nav className="breadcrumb" aria-label="breadcrumbs">
                   <ul>
                     <li><NavLink to={"/" }>Home</NavLink></li>
                     <li className="is-active"><span >&nbsp;&nbsp;</span>Companies</li>
                   </ul>
                 </nav>
-                <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth is-narrow-mobile">
-                    <tbody>
-                        {/* if statement for the displaying of the table of companies. */}
-                        {this.state.companies?
-                            this.state.companies.map((company, ind) => {
-                                return(
-                                    <tr key={ind}>
-                                    <td>
-                                        <NavLink to={"/company/" + company.symbol} company={company} key={ind}>
-                                            <div className="card-image box is-marginless column">
-                                                <div className="container logo">
-                                                    <figure className="image image is-3by2">
-                                                        {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
-                                                      <img src={process.env.PUBLIC_URL + '/logos/'+ company.symbol+ '.svg'} alt={company.symbol} />
-                                                    </figure>
-                                                </div>
+                <div className = "card-table">
+                    <div className = "content">
+                        <div className = "table is-striped is-boardered">
+                            <div className = "box tbody panel">
+                                {this.state.companies?
+                                    this.state.companies.map((company, ind) => {
+                                        return (
+                                            <div className = "is-fullwidth columns panel-block" key={ind}>
+                                                <NavLink to={"/company/" + company.symbol} company={company} key={ind} className = "columns column is-12">
+                                                    <div className = "column is-6 is-centered">
+                                                        <figure className="image image is-128x128">
+                                                            {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
+                                                          <img src={process.env.PUBLIC_URL + '/logos/'+ company.symbol+ '.svg'} alt={company.symbol} />
+                                                        </figure>
+                                                    </div>
+                                                    <div className = "column is-6">
+                                                        <h1>{company.name}</h1>
+                                                    </div>
+                                                </NavLink>
                                             </div>
-                                        </NavLink>
-                                    </td>
-                                    <td><NavLink to={"/company/" + company.symbol} symbol={company.symbol} key={ind}>{company.name}</NavLink></td>
-                                    </tr>
-                                );
-                            }):null
-                        }
-                    </tbody>
-                </table>
-            </article>
+                                            
+                                        );
+                                        
+                                    }):null
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );}
     }
 }
