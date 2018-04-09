@@ -25,7 +25,7 @@ $primary: #F18E8B;
 $primary-invert: findColorInvert($primary);
 $info: #ECC643;
 $info-invert: findColorInvert($info);
-$success: #7EA562;
+$success: $color2;
 $success-invert: findColorInvert($success);
 $warning: #fB952A;
 $warning-invert: findColorInvert($warning);

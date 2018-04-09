@@ -80,7 +80,7 @@ class SingleCompany extends Component {
                       </ul>
                     </nav>
                     <div className = "columns">
-                        <div className = "column is-one-fourth is-centered">
+                        <div className = "column is-one-fifth is-centered">
                         <h1 className = "title">
                                     {this.state.company.name}
                                 </h1>
