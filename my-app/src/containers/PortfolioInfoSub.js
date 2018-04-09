@@ -44,13 +44,15 @@ class PortfolioInfoSub extends Component {
         // Checks if the the information for the database api call has been successfully retrieved and displays result 
         if (!this.state.completePortfolio) {return null;}
             else return (
-                <table>
+                <table className = "table is-striped">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Name</th>
+                            <th>Owned</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                    <tr>
-                        <th>Symbol</th>
-                        <th>Name</th>
-                        <th>Owned</th>
-                    </tr>
                     {/* maps the user portfolio data to display the information for each of the stocks retrieved */}
                     {this.state.completePortfolio.map((stock, ind) => {
                         return(

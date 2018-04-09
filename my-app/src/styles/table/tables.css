@@ -7124,14 +7124,10 @@ table {
   white-space: norap;
   width: 100%;
   border: 1px solid #000000;
-  background-color: #ebebeb; }
-  table th {
-    background-color: #52489c; }
+  background-color: #ECECEC; }
+  table thead tr th {
+    background-color: #5DA2D5; }
   table th, table tr, table td {
     border: 1px solid #000000;
     padding: 0.5em 0.75em;
-    vertical-align: top;
-    text-align: center; }
-
-.stockTable {
-  background-color: #000000; }
+    vertical-align: top; }
