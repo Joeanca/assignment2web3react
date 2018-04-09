@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import CompanySummarySub from './CompanySummarySub.js';
 import CompanyListSub from './CompanyListSub.js';
+import styles from '../styles/home/home.scss';
 
 
 //----------------------------------
@@ -70,42 +71,47 @@ class SingleCompany extends Component {
         }else{
             /* eslint-disable react-in-jsx-scope */
             return(
-            <article className="section">
-                <nav className="breadcrumb" aria-label="breadcrumbs">
-                  <ul>
-                    <li><NavLink to={"/" }>Home</NavLink></li>
-                    <li><NavLink to={"/companies" }>Companies</NavLink></li>
-                    <li className="is-active"><span >&nbsp;&nbsp;</span>{this.state.company?this.state.company.name:"loading..."}</li>
-                  </ul>
-                </nav>
-                <div className="card-image">
-                    <div className="container logo">
-                        <figure className="image is-1by1">
-                            {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
-                          <img src={process.env.PUBLIC_URL + '/logos/'+ this.state.symbol+ '.svg'} alt={this.state.symbol} />
-                        </figure>
-                        <div>{this.state.company.name}</div>
-                        
+                <article className="section">
+                    <nav className="breadcrumb" aria-label="breadcrumbs">
+                      <ul>
+                        <li><NavLink to={"/" }><span> &nbsp;&nbsp;</span>Home</NavLink></li>
+                        <li><NavLink to={"/companies" }>Companies</NavLink></li>
+                        <li className="is-active"><span >&nbsp;&nbsp;</span>{this.state.company?this.state.company.name:"loading..."}</li>
+                      </ul>
+                    </nav>
+                    <div className = "columns">
+                        <div className = "column is-one-fifth is-centered">
+                        <h1 className = "title">
+                                    {this.state.company.name}
+                                </h1>
+                            <div className={styles.companyCard}>
+                                    <figure className="image is-3by3">
+                                        {/* https://stackoverflow.com/questions/44154939/load-local-images-in-react-js */}
+                                        <img src={process.env.PUBLIC_URL + '/logos/'+ this.state.symbol+ '.svg'} alt={this.state.symbol} />
+                                    </figure>
+                            </div>
+                        </div>
+                        <div className = "column">
+                            {/* RENDER TABS AND PASS IN PROPS TO THE COMPONENTS WITHIN THE TABS */}
+                            <div className="tabs is-boxed is-fullwidth is-marginless">
+                                <ul>
+                                    <li className="is-active" id="details"><a onClick={()=>this.changeTab("details")} >Summary</a></li>
+                                    <li id="portfolio"><a onClick={()=>this.changeTab("portfolio")}>List</a></li>
+                                </ul>
+                            </div>
+                            <div className="box is-radiusless singleUserBox">
+                                {this.state.defaultTab? 
+                            // RENDER TAB ACCORDING TO THE STATUS OF THE THIS.STATE.DEFAULTAB
+                            // IF TRUE
+                                    <CompanySummarySub symbol={this.state.symbol} company={this.state.company}/>
+                            // IF FALSE
+                                    :<CompanyListSub symbol={this.state.symbol} />
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
-                {/* RENDER TABS AND PASS IN PROPS TO THE COMPONENTS WITHIN THE TABS */}
-                <div className="tabs is-boxed is-fullwidth is-marginless">
-                    <ul>
-                        <li className="is-active" id="details"><a onClick={()=>this.changeTab("details")} >Summary</a></li>
-                        <li id="portfolio"><a onClick={()=>this.changeTab("portfolio")}>List</a></li>
-                    </ul>
-                </div>
-                <div className="box is-radiusless singleUserBox">
-                    {this.state.defaultTab? 
-                        // RENDER TAB ACCORDING TO THE STATUS OF THE THIS.STATE.DEFAULTAB
-                        // IF TRUE
-                        <CompanySummarySub symbol={this.state.symbol} company={this.state.company}/>
-                        // IF FALSE
-                        :<CompanyListSub symbol={this.state.symbol} />
-                    }
-                </div>
-            </article>
-        );}
+                </article>
+            );}
+        }
     }
-}
 export default SingleCompany;
