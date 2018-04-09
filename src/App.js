@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch  } from 'react-router-dom';
+import './styles/base/app.scss';
 
 
-import './App.css';
+
 import socketClient from './chatserver/SocketClient.js'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import HeaderBar from './components/HeaderBar.js';
@@ -34,7 +35,7 @@ class App extends Component {
         
     }
     componentDidMount() {
-      console.log("app mounted" );      
+      // console.log("app mounted" );      
       this.state.client.logoutHandler(this.onLogout);
     }
     //-----------------------------------------------------
@@ -79,29 +80,28 @@ class App extends Component {
     //THIS IS USED TO BUILD NOTIFICATIONS
     //-----------------------------------------------------------
     createNotification = (type, username, message = "") => {
-      console.log("creating notification");
-      console.log(type);
+      // console.log(type);
         switch (type) {         
           case 'login':
-            console.log("creating info notification");
+            // console.log("creating info notification");
             NotificationManager.info(message, username + " Logged in", 2000);
             break;
           case 'message':
-            console.log("creating message notification");
+            // console.log("creating message notification");
             NotificationManager.info(message, username , 3000);
             break;  
           case 'success': 
             NotificationManager.success('Success message', 'Title here');
             break;
           case 'logout':
-            console.log("creating logout notification");
+            // console.log("creating logout notification");
             NotificationManager.info(message, username , 3000);
             break;  
           case 'warning':
             NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
             break;
           default:
-          console.log("in switch")
+          // console.log("in switch")
             NotificationManager.error('Error message', 'Click me!', 5000, () => {
               alert('callback');
             });
@@ -112,7 +112,7 @@ class App extends Component {
     //-----------------------------------------------------
     // CALLED BY CHECKAUTH IF ISAUTHENTICATED IS FALSE. REDIRECTS TO THE LOGIN SCREEN 
     //-----------------------------------------------------
-    redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} startNoLogin={this.state.startNoLogin}loginHandler={this.state.client.loginHandler}
+    redirect=({ component: Component, ...rest }) => (<Route {...rest} render={props => (<Login to={{pathname: "/login",state: { from: props.location }}} auth={this.changeAuth} startNoLogin={this.state.startNoLogin} loginHandler={this.state.client.loginHandler}
     unregisterHandler={this.state.client.unregisterHandler}
     client={this.state.client}
     notification={this.createNotification}
