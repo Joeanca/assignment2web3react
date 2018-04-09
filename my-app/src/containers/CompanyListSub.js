@@ -8,6 +8,7 @@ import axios from 'axios';
 // 7 B .display a drop-down list with the months of the year. When the user selects a month, display a table with the price information (date, low, high, close) for each day of the month that has data.
 //----------------------------------
 class CompanyListSub extends Component{
+    
     constructor(props){
         super(props);
         this.state ={
@@ -71,21 +72,33 @@ class CompanyListSub extends Component{
                 </div>
                 {/* Checks the status of the data, once the data is populated by the api call it displays the table with the monthly historical information*/}
                 {this.state.historicalData?
-                    <table>
+                    <table className = "table is-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Open</th>
+                                <th>High</th>
+                                <th>Low</th>
+                                <th>Close</th>
+                                <th>Volume</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                        <tr><th>Date</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr>
-                    {/* Map the historical data to output a table row with the data for the specific date */}
-                    {this.state.historicalData.map((month, ind)=>{
-                        return(<tr key={ind}>
-                            <td>{month.date}</td>
-                            <td>{month.open}</td>
-                            <td>{month.high}</td>
-                            <td>{month.low}</td>
-                            <td>{month.close}</td>
-                            <td>{month.volume}</td>
-                        </tr>);
-                    })}
-                    </tbody>
+                        {/* Map the historical data to output a table row with the data for the specific date */}
+                         {this.state.historicalData.map((month, ind)=>{
+                            return(
+                                <tr key={ind}>
+                                    <td>{month.date}</td>
+                                    <td>{month.open}</td>
+                                    <td>{month.high}</td>
+                                    <td>{month.low}</td>
+                                    <td>{month.close}</td>
+                                    <td>{month.volume}</td>
+                                </tr>
+                                );
+                            })
+                        }
+                        </tbody>
                     </table>
                 // RETURNS NULL IF HISTORICALDATA STATE IS NOT SET
                 :null}

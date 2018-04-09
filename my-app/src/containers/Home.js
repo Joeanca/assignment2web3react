@@ -15,8 +15,8 @@ class Home extends Component {
     render(){
         return(
             <div>
-                <div className = "columns">
-                    <div className = "column is-4">
+                <div className = "columns is-multiline">
+                    <div className = "column is-3">
                         {/*Card for Companies*/}
                         <div className = "card">
                             <figure className = "image is-3by3">
@@ -32,7 +32,7 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className = "column is-4">
+                    <div className = "column is-3">
                         {/*Card for Portfolios*/}
                         <div className = "card">
                             <figure className = "image is-3by3">
@@ -48,25 +48,7 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className = "column is-4">
-                        {/*Card for Login*/}
-                        <div className = "card">
-                            <figure className = "image is-3by3">
-                                <img src = "http://placeimg.com/640/480/arch" alt = "Login" />
-                            </figure>
-                            <div className = "card-content">
-                                <div className = "media">
-                                    <div className = "media-content">
-                                        <br/>
-                                        <NavLink to="/login" className="button is-black is-fullwidth is-rounded is-inverted" >Login</NavLink>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className = "columns is-multiline">
-                    <div className = "column is-4">
+                    <div className = "column is-3">
                         {/*Card for Visualizer*/}
                         <div className = "card">
                             <figure className = "image is-3by3">
@@ -82,7 +64,7 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className = "column is-4">
+                    <div className = "column is-3">
                         {/*Card for About Us*/}
                         <div className = "card">
                             <figure className = "image is-3by3">

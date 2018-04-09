@@ -1,6 +1,6 @@
 @import "../base/basicstyle.scss";
 
-$table-background-color: $color4;
+$table-background-color: $color3;
 
 $table-cell-border: 1px solid #000000 !default
 $table-cell-border-width: 0 0 1px !default
@@ -26,18 +26,18 @@ table {
     white-space: norap;
     width: 100%;
     border: 1px solid #000000;
-    background-color: $color4;
-    th {
-        background-color: $color1;
+    background-color: $table-background-color;
+    thead {
+        tr {
+            th {
+               background-color: $color5; 
+            }
+        }
     }
     th, tr, td {
         border: 1px solid #000000;
         padding: $table-cell-padding;
         vertical-align: top;
-        text-align: center;
+        //text-align: center;
     }
-}
-
-.stockTable {
-    background-color: #000000;
 }
