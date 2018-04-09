@@ -1,9 +1,9 @@
-React = require('react');
-ReactDOM = require('react-dom');
-BrowserRouter  = require( 'react-router-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import BrowserRouter  from 'react-router-dom';
 //import './index.scss';
-App = require( './App');
-registerServiceWorker = require( './registerServiceWorker');
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
 registerServiceWorker();
