@@ -1,3 +1,5 @@
+@import '../base/basicstyle.scss';
+
 .columns {
     margin-top: 2px;
     margin-bottom: 0rem;
@@ -9,4 +11,24 @@
 }
 .img {
     padding: 0rem;
+    box-shadow: 5px 5px 8px #888888;
+    max-width: 100%; 
+    max-height: 100%;
+    margin: auto;
+    display: block;
+}
+.card {
+    box-shadow: 5px 5px 8px #888888;
+    background-color: $color2;
+}
+.companyCard {
+    background-color: $color3;
+    box-shadow: 5px 5px 8px #888888;
+}
+.button {
+    padding: 0rem;
+    margin: 0rem;
+}
+.dt{
+    font-weight: 900;
 }
