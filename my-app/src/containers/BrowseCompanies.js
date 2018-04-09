@@ -33,6 +33,7 @@ class BrowseCompanies extends Component {
         }else{
             return(
                 <div>
+                <article className="section">
                     {/*Breadcrumb*/}
                     <nav className="breadcrumb" aria-label="breadcrumbs">
                       <ul>
@@ -71,7 +72,9 @@ class BrowseCompanies extends Component {
                             }):null
                         }
                     </div>
+                    </article>
                 </div>
+                
             );
         }
     }
