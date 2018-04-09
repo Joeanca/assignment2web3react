@@ -1,3 +1,5 @@
+@import '../base/basicstyle.scss';
+
 .columns {
     margin-top: 2px;
     margin-bottom: 0rem;
@@ -9,4 +11,15 @@
 }
 .img {
     padding: 0rem;
+    box-shadow: 5px 5px 8px #888888;
+    width: auto;
+    height: auto;
+}
+.card {
+    box-shadow: 5px 5px 8px #888888;
+    background-color: $color2;
+}
+.button {
+    padding: 0rem;
+    margin: 0rem;
 }

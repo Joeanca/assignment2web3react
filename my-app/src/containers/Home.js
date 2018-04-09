@@ -26,7 +26,7 @@ class Home extends Component {
                                 <div className = "media">
                                     <div className = "media-content">
                                         <br/>
-                                        <NavLink to="/companies" className="button is-primary is-fullwidth" >Companies</NavLink>
+                                        <NavLink to="/companies" className="button is-black is-fullwidth is-rounded is-inverted" >Companies</NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@ class Home extends Component {
                                 <div className = "media">
                                     <div className = "media-content">
                                         <br/>
-                                        <NavLink to="/portfolio" className="button is-primary is-fullwidth" >Portfolio</NavLink>
+                                        <NavLink to="/portfolio" className="button is-black is-fullwidth is-rounded is-inverted" >Portfolio</NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@ class Home extends Component {
                                 <div className = "media">
                                     <div className = "media-content">
                                         <br/>
-                                        <NavLink to="/login" className="button is-primary is-fullwidth" >Login</NavLink>
+                                        <NavLink to="/login" className="button is-black is-fullwidth is-rounded is-inverted" >Login</NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@ class Home extends Component {
                                 <div className = "media">
                                     <div className = "media-content">
                                         <br/>
-                                        <NavLink to="/company" className="button is-primary is-fullwidth" >Company</NavLink>
+                                        <NavLink to="/company" className="button is-black is-fullwidth is-rounded is-inverted" >Company</NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@ class Home extends Component {
                                 <div className = "media">
                                     <div className = "media-content">
                                         <br/>
-                                        <NavLink to="/visualizer" className="button is-primary is-fullwidth" >Visualizer</NavLink>
+                                        <NavLink to="/visualizer" className="button is-black is-fullwidth is-rounded is-inverted" >Visualizer</NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@ class Home extends Component {
                                 <div className = "media">
                                     <div className = "media-content">
                                         <br/>
-                                        <NavLink to="/aboutus" className="button is-primary is-fullwidth" >About Us</NavLink>
+                                        <NavLink to="/aboutus" className="button is-black is-fullwidth is-rounded is-inverted" >About Us</NavLink>
                                     </div>
                                 </div>
                             </div>
