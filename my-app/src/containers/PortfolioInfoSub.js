@@ -22,7 +22,6 @@ class PortfolioInfoSub extends Component {
     // Once the component mounts it calls the api as described below
     //----------------------------------
     componentDidMount(){
-        if (!this.state.completePortfolio){
             let userPortfolio= this.state.userPortfolio;
             let portfolioWithName = [];
             let porfolioComplete = [];
@@ -35,9 +34,15 @@ class PortfolioInfoSub extends Component {
                       portfolioWithName.push(toReturn);
                       }}return null;
                 });
-               // eslint-disable-next-line
-                this.setState({completePortfolio: portfolioWithName});
-                portfolioWithName.map(el=>{
+               this.setState({completePortfolio: portfolioWithName}, getPrices());
+
+            })
+            .catch(function (error){
+                alert('Error with api call ... error=' + error);
+            });
+            // eslint-disable-next-line
+            let getPrices =()=>{
+            portfolioWithName.map(el=>{
                     axios("https://obscure-temple-42697.herokuapp.com/api/prices/latest/"+ el.symbol).then(response => {
                         let newEl = el;
                         newEl.close = response.data.close;
@@ -46,16 +51,13 @@ class PortfolioInfoSub extends Component {
                 .catch(function (error){
                     alert('Error with api call ... error=' + error);
                 })});
-            })
-            .catch(function (error){
-                alert('Error with api call ... error=' + error);
-            });
             console.log(porfolioComplete);
-            this.setState({porComplete:porfolioComplete});
-
-        }
+            this.setState({porComplete:porfolioComplete},this.render());
+            }
+            
+        
     }
-    
+
     sort=(id)=>{
         let porfolioComplete = this.state.porComplete;
         if (document.querySelector("#"+ id).classList.contains(".desc")){
@@ -86,7 +88,6 @@ class PortfolioInfoSub extends Component {
                     <tbody>
                     {/* maps the user portfolio data to display the information for each of the stocks retrieved */}
                     {this.state.porComplete.map((stock, ind) => {
-                        console.log(stock);
                         return(
                             <tr key={ind}>
                                 <td>{stock.symbol}</td>

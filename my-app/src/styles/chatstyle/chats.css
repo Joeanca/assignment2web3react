@@ -234,4 +234,9 @@ ul {
 
 .message--author {
   background-color: #F78888;
-  padding: 15px; }
+  padding: 5px;
+  border: 10px;
+  border-radius: 10%; }
+
+.sc-message--content.sent > message--author {
+  display: none; }

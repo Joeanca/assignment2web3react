@@ -293,5 +293,14 @@ $dblue: #5DA2D5; //Blue - Dark Accent
 }.message--author{
     // radius corners, padding bottom
     background-color:$pink;
-    padding: 15px;
+    padding: 5px;
+    border: 10px;
+    border-radius:10%;
 }
+.sc-message--content.sent>message--author{
+  display:none;
+}
+
+// sc-message--content received
+
+// sc-message--content sent
