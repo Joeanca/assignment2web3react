@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "main": "my-app/src/index.js",  
   "dependencies": {
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
@@ -62,5 +63,8 @@
     "react-notifications": "^1.4.3",
     "react-scripts": "1.1.1",
     "socket.io-client": "^2.1.0"
+  },
+  "scripts": {
+    "start": "npm src/index.js"
   }
 }
